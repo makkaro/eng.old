@@ -1,21 +1,27 @@
 require('dotenv').config()
 
+var path = require('path')
+
 var express = require('express')
 
 var server = express()
+
+server.set('view engine', 'ejs')
+
+server.use(express.static(path.join(__dirname, 'public')))
+server.use(express.static(path.join(__dirname, 'public/img')))
+server.use(express.static(path.join(__dirname, 'node_modules/inter-ui')))
+
+server.use('/', require('./routes'))
 
 var db = require('./db/models')
 
 void async function () {
     switch (process.argv[2]) {
         case '--seed':
-            console.log(1)
             var seed = require('./db/seed')
-            console.log(2)
             await db.sqlz.sync({force: true})
-            console.log(3)
             await seed(db)
-            console.log(4)
             break
         default:
             var PORT = process.env.PORT
