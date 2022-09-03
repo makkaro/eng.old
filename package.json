@@ -1,7 +1,12 @@
 {
-    "scripts": {},
-    "dependencies": {},
+    "scripts": {
+        "start" : "nodemon index"
+    },
+    "dependencies": {
+        "dotenv"  : "^16.0.2",
+        "express" : "^4.18.1"
+    },
     "devDependencies": {
-        "nodemon": "^2.0.19"
+        "nodemon" : "^2.0.19"
     }
 }
