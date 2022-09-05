@@ -10,6 +10,7 @@ server.set('view engine', 'ejs')
 
 server.use(express.static(path.join(__dirname, 'public')))
 server.use(express.static(path.join(__dirname, 'public/img')))
+server.use(express.static(path.join(__dirname, 'public/scripts')))
 server.use(express.static(path.join(__dirname, 'node_modules/inter-ui')))
 
 server.use('/', require('./routes'))

@@ -19,7 +19,7 @@ module.exports = function (sqlz, DataTypes) {
         img: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 'def' // TODO
+            defaultValue: path.join(__dirname, 'public/img/product-def.png')
         }
     })
     product.associate = function (models) {

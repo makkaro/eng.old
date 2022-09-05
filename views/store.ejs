@@ -1,3 +1,376 @@
-<center><h2>store</h2></center>
+<!doctype html>
+<html lang='pl'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-<%- include('_header') %>
+    <link rel='stylesheet' href='main.css'>
+
+    <title><%= view_data.title %></title>
+</head>
+
+<!-- TODO tailwindcss placeholder assets everywhere ----------------------------------------------->
+<body>
+    <%- include('_header') %>
+
+    <div class='relative z-40 hidden lg:hidden' id='filters'>
+        <div class='fixed inset-0 bg-black bg-opacity-25'></div>
+
+        <div class='fixed inset-0 flex z-40'>
+            <div class='mr-auto relative h-full flex-1' id='filters-bg'></div>
+
+            <div class='ml-auto relative max-w-xs h-full w-full bg-white shadow-xl py-4 pb-12 flex
+                        flex-col overflow-y-auto bg-white'>
+                <div class='px-4 flex items-center justify-between'>
+                    <h2 class='text-lg font-medium text-gray-900'>Filtrowanie</h2>
+
+                    <button class='-mr-2 h-10 w-10 p-2 rounded-md flex items-center justify-center
+                                   text-gray-400 hover:text-gray-500'
+                            id='filters-hide'>
+                        <svg class='h-6 w-6'>
+                            <use xlink:href='def.svg#x'/>
+                        </svg>
+                    </button>
+                </div>
+
+                <form class='mt-4 border-t border-gray-200'>
+                    <div class='font-medium text-gray-900 px-2 py-3'>
+                        <% view_data.categories.forEach(category => { %>
+                            <a class='block px-2 py-3' href='#'>
+                                <%= category.dataValues.name %>
+                            </a>
+                        <% }) %>
+                    </div>
+
+                    <div class='border-t border-gray-200 px-4 py-6'>
+                        <h3 class='-mx-2 -my-3 flow-root'>
+                            <button class='px-2 py-3 w-full flex items-center justify-between
+                                           text-gray-400 hover:text-gray-500 collapse-toggle'
+                                    data-target='filter-section-0'>
+                                <span class='font-medium text-gray-900'>Producent</span>
+
+                                <span class='ml-6 flex items-center'>
+                                        <svg class='h-5 w-5'>
+                                            <use xlink:href='def.svg#plus'/>
+                                        </svg>
+
+                                        <svg class='hidden h-5 w-5'>
+                                            <use xlink:href='def.svg#minus'/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </h3>
+
+                        <div class='pt-6 hidden' id='filter-section-0'>
+                            <div class='space-y-6'>
+                                <% view_data.manufacturers.forEach(manufacturer => { %>
+                                    <div class='flex items-center'>
+                                        <input class='h-4 w-4 border-gray-300 rounded
+                                                      text-indigo-600 focus:ring-indigo-500'
+                                               type='checkbox'>
+                                        <label class='ml-3 min-w-0 flex-1 text-gray-500'>
+                                            <%= manufacturer.dataValues.name %>
+                                        </label>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='border-t border-gray-200 px-4 py-6'>
+                        <h3 class='-mx-2 -my-3 flow-root'>
+                            <button class='px-2 py-3 w-full flex items-center justify-between
+                                           text-gray-400 hover:text-gray-500 collapse-toggle'
+                                    data-target='filter-section-1'>
+                                <span class='font-medium text-gray-900'>Cena</span>
+
+                                <span class='ml-6 flex items-center'>
+                                        <svg class='h-5 w-5'>
+                                            <use xlink:href='def.svg#plus'/>
+                                        </svg>
+
+                                        <svg class='hidden h-5 w-5'>
+                                            <use xlink:href='def.svg#minus'/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </h3>
+
+                        <div class='pt-6 hidden' id='filter-section-1'>
+                            <div class='space-y-6'>
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 min-w-0 flex-1 text-gray-500'>
+                                        0 zł - 100 zł
+                                    </label>
+                                </div>
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 min-w-0 flex-1 text-gray-500'>
+                                        100 zł - 500 zł
+                                    </label>
+                                </div>
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 min-w-0 flex-1 text-gray-500'>
+                                        500 zł - 1000 zł
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='border-t border-gray-200 px-4 py-6'>
+                        <h3 class='-mx-2 -my-3 flow-root'>
+                            <button class='px-2 py-3 w-full flex items-center justify-between
+                                           text-gray-400 hover:text-gray-500 collapse-toggle'
+                                    data-target='filter-section-2'>
+                                <span class='font-medium text-gray-900'>Dostępność</span>
+
+                                <span class='ml-6 flex items-center'>
+                                        <svg class='h-5 w-5'>
+                                            <use xlink:href='def.svg#plus'/>
+                                        </svg>
+
+                                        <svg class='hidden h-5 w-5'>
+                                            <use xlink:href='def.svg#minus'/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </h3>
+
+                        <div class='pt-6 hidden' id='filter-section-2'>
+                            <div class='space-y-6'>
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 min-w-0 flex-1 text-gray-500'>
+                                        Tylko dostępne
+                                    </label>
+                                </div>
+
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 min-w-0 flex-1 text-gray-500'>
+                                        Tylko niedostępne
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div class='relative z-10 flex items-baseline justify-between pt-12 pb-6 border-b
+                    border-gray-200'>
+            <h1 class='text-4xl font-extrabold tracking-light text-gray-900'>Tekst</h1>
+
+            <div class='flex items-center lg:flex-row-reverse'>
+                <div class='relative inline-block text-left'>
+                    <div>
+                        <button class='group inline-flex justify-center text-sm font-medium
+                                       text-gray-700 hover:text-gray-900 drop-toggle'
+                                data-target='sort'>
+                            Sort
+                            <svg class='flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400
+                                        group-hover:text-gray-500'>
+                                <use xlink:href='def.svg#chevron'/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class='origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl
+                                bg-white ring-1 ring-black ring-opacity-5 focus:outline-none
+                                transition ease-out duration-100 transform opacity-0 scale-95'
+                        id='sort'>
+                        <div class='py-1'>
+                            <a href='#' class='font-medium text-gray-900 block px-4 py-2 text-sm'>
+                                Najnowsze
+                            </a>
+                            <a href='#' class='font-medium text-gray-900 block px-4 py-2 text-sm'>
+                                A-Z
+                            </a>
+                            <a href='#' class='font-medium text-gray-900 block px-4 py-2 text-sm'>
+                                Z-A
+                            </a>
+                            <a href='#' class='font-medium text-gray-900 block px-4 py-2 text-sm'>
+                                Cena: od najniższej
+                            </a>
+                            <a href='#' class='font-medium text-gray-900 block px-4 py-2 text-sm'>
+                                Cena: od najwyższej
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class='p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500'
+                        id='filters-show'>
+                    <svg class='lg:hidden h-5 w-5'>
+                        <use xlink:href='def.svg#filter'/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class='pt-6 pb-24'>
+            <div class='grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10'>
+                <form class='hidden lg:block'>
+                    <ul class='text-sm font-medium text-gray-900 space-y-4 pb-6 border-b
+                               border-gray-200'>
+                        <% view_data.categories.forEach(category => { %>
+                            <li><a href='#'><%= category.dataValues.name %></a></li>
+                        <% }) %>
+                    </ul>
+
+                    <div class='border-b border-gray-200 py-6'>
+                        <h3 class='-my-3'>
+                            <button class='py-3 w-full flex items-center justify-between text-sm
+                                           text-gray-400 hover:text-gray-500 collapse-toggle'
+                                    data-target='side-filter-section-0'>
+                                <span class='font-medium text-gray-900'>Producent</span>
+
+                                <span class='ml-6 flex items-center'>
+                                        <svg class='h-5 w-5'>
+                                            <use xlink:href='def.svg#plus'/>
+                                        </svg>
+
+                                        <svg class='hidden h-5 w-5'>
+                                            <use xlink:href='def.svg#minus'/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </h3>
+
+                        <div class='pt-6 hidden' id='side-filter-section-0'>
+                            <div class='space-y-4'>
+                                <% view_data.manufacturers.forEach(filter => { %>
+                                    <div class='flex items-center'>
+                                        <input class='h-4 w-4 border-gray-300 rounded
+                                                      text-indigo-600 focus:ring-indigo-500'
+                                               type='checkbox'>
+                                        <label class='ml-3 text-sm text-gray-600'>
+                                            <%= filter.dataValues.name %>
+                                        </label>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='border-b border-gray-200 py-6'>
+                        <h3 class='-my-3'>
+                            <button class='py-3 w-full flex items-center justify-between text-sm
+                                           text-gray-400 hover:text-gray-500 collapse-toggle'
+                                    data-target='side-filter-section-1'>
+                                <span class='font-medium text-gray-900'>Cena</span>
+
+                                <span class='ml-6 flex items-center'>
+                                        <svg class='h-5 w-5'>
+                                            <use xlink:href='def.svg#plus'/>
+                                        </svg>
+
+                                        <svg class='hidden h-5 w-5'>
+                                            <use xlink:href='def.svg#minus'/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </h3>
+
+                        <div class='pt-6 hidden' id='side-filter-section-1'>
+                            <div class='space-y-4'>
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 text-sm text-gray-600'>
+                                        0 zł - 100 zł
+                                    </label>
+                                </div>
+
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 text-sm text-gray-600'>
+                                        100 zł - 500 zł
+                                    </label>
+                                </div>
+
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 text-sm text-gray-600'>
+                                        500 zł - 1000 zł
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='border-b border-gray-200 py-6'>
+                        <h3 class='-my-3'>
+                            <button class='py-3 w-full flex items-center justify-between text-sm
+                                           text-gray-400 hover:text-gray-500 collapse-toggle'
+                                    data-target='side-filter-section-2'>
+                                <span class='font-medium text-gray-900'>Dostępność</span>
+
+                                <span class='ml-6 flex items-center'>
+                                        <svg class='h-5 w-5'>
+                                            <use xlink:href='def.svg#plus'/>
+                                        </svg>
+
+                                        <svg class='hidden h-5 w-5'>
+                                            <use xlink:href='def.svg#minus'/>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </h3>
+
+                        <div class='pt-6 hidden' id='side-filter-section-2'>
+                            <div class='space-y-4'>
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 text-sm text-gray-600'>
+                                        Tylko dostępne
+                                    </label>
+                                </div>
+
+                                <div class='flex items-center'>
+                                    <input class='h-4 w-4 border-gray-300 rounded text-indigo-600
+                                                  focus:ring-indigo-500'
+                                           type='checkbox'>
+                                    <label class='ml-3 text-sm text-gray-600'>
+                                        Tylko niedostępne
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class='lg:col-span-3'>
+                    <div class='border-4 border-dashed border-gray-200 rounded-lg h-96 lg:h-full'>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src='_store.js'></script>
+</body>
+</html>
