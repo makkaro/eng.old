@@ -1,5 +1,3 @@
-var path = path || require('path')
-
 module.exports = function (sqlz, DataTypes) {
     var product = sqlz.define('product', {
         name: {
@@ -19,7 +17,7 @@ module.exports = function (sqlz, DataTypes) {
         img: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: path.join(__dirname, 'public/img/product-def.png')
+            defaultValue: 'product-def.png'
         }
     })
     product.associate = function (models) {
