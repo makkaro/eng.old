@@ -12,7 +12,7 @@ module.exports.index = async function (req, res) {
     })
 
     view_data.products = await db.product.findAll({
-        attributes: ['name', 'cost', 'img']
+        attributes: ['name', 'cost', 'img', 'hidden', 'id']
     })
 
     view_data.url = req.originalUrl

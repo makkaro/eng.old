@@ -1,13 +1,13 @@
 module.exports = function (sqlz, DataTypes) {
     var product = sqlz.define('product', {
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         hidden: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: true
+        },
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         cost: {
             type: DataTypes.DECIMAL(10, 2),
@@ -23,6 +23,7 @@ module.exports = function (sqlz, DataTypes) {
     product.associate = function (models) {
         this.belongsTo(models.category)
         this.belongsTo(models.manufacturer)
+        this.belongsToMany(models.cart, {through: models.cart_item})
     }
     return product
 }

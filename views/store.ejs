@@ -383,25 +383,40 @@
     <script>
         var view_data = JSON.parse('<%- JSON.stringify(view_data) %>')
 
+        function create_card({id, hidden, name, cost, img}) {
+            if (hidden) return ''
+            return (`
+                <a href='#' class='group'>
+                    <div class='aspect-w-1 aspect-h-1 w-full overflow-hidden
+                                rounded-lg xl:aspect-w-7 xl:aspect-h-8'>
+                        <img class='h-full w-full object-cover object-center
+                                    group-hover:opacity-75'
+                             src=${img}>
+
+                        <h3 class='mt-4 text-sm text-gray-700'>
+                            ${name}
+                        </h3>
+
+                        <p class='mt-1 text-lg font-medium text-gray-900'>
+                            ${cost} zł
+                        </p>
+
+                        <button id=${id}>
+                            <span>
+                                <svg class='h-9 w-9 hover:scale-110'>
+                                    <use xlink:href='def.svg#cart-plus'/>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </a>
+            `)
+        }
+
         function create_grid(items) {
             var grid = ''
             items.forEach(item => {
-                grid += (`
-                    <a href='#' class='group'>
-                        <div class='aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg
-                                    xl:aspect-w-7 xl:aspect-h-8'>
-                            <img class='h-full w-full object-cover object-center
-                                        group-hover:opacity-75'
-                                 src=${item.img}>
-                            <h3 class='mt-4 text-sm text-gray-700'>
-                                ${item.name}
-                            </h3>
-                            <p class='mt-1 text-lg font-medium text-gray-900'>
-                                ${item.cost} zł
-                            </p>
-                        </div>
-                    </a>
-                `)
+                grid += create_card(item)
             })
             return grid
         }
@@ -409,6 +424,28 @@
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('grid-container').innerHTML
                 = create_grid(view_data.products)
+
+            Array.from(view_data.products).forEach(item => {
+                if (item.hidden) return
+                document
+                    .getElementById(item.id)
+                    .addEventListener('click', function () {
+                        var cart = JSON.parse(localStorage.getItem('cart')) ||
+                            { items: Array() }
+                        if (cart.items.some(cart_item => {
+                            return cart_item.hasOwnProperty('id') &&
+                                cart_item.hasOwnProperty('amount') &&
+                                cart_item['id'] == item.id
+                        })) {
+                            cart.items.find(cart_item => cart_item['id'] ==
+                                item.id)['amount']++
+                        } else {
+                            cart.items.unshift({id: item.id, amount: 1})
+                        }
+                        console.log(cart)
+                        localStorage.setItem('cart', JSON.stringify(cart))
+                    })
+            })
         })
 
         var lg_search = document.getElementById('lg-search'),
