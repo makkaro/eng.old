@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang='pl'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title><%= view_data.title %></title>
+</head>
+
+<body>
+    <center style='margin-top: 200px'>
+        <h2>logowanie</h2>
+        <% if (view_data.user) { %>
+            <h3>zalogowano: <%= view_data.user.login %></h3>
+        <% } else { %>
+            <h3>nie zalogowano</h3>
+        <% } %>
+        <form action='/login/password' method='POST'>
+            <div>
+                <label for='login'>login</label>
+                <input id='login' name='login' autocomplete='login' required
+                       autofocus>
+            </div>
+            <div>
+                <label for='pass'>hasło</label>
+                <input id='pass' name='pass' autocomplete='current-pass'
+                       required>
+            </div>
+            <input type='submit' value='zaloguj'>
+        </form>
+        <form action='/logout' method='post'>
+            <input type='submit' value='wyloguj'>
+        </form>
+    </center>
+</body>
+</html>
