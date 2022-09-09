@@ -1,7 +1,13 @@
-var db = require('../db/models')
+var db = require('../db')
 
-module.exports.index = async function (req, res) {
+module.exports.name = 'store'
+
+module.exports.view = async function (req, res) {
     var view_data = Object.create(null)
+
+    view_data.products = await db.product.findAll({
+        attributes: ['id', 'hidden', 'name', 'cost', 'img']
+    })
 
     view_data.categories = await db.category.findAll({
         attributes: ['name']
@@ -11,11 +17,5 @@ module.exports.index = async function (req, res) {
         attributes: ['name']
     })
 
-    view_data.products = await db.product.findAll({
-        attributes: ['name', 'cost', 'img', 'hidden', 'id']
-    })
-
-    view_data.url = req.originalUrl
-
-    res.render('store', {view_data})
+    res.render(module.exports.name, {view_data})
 }
