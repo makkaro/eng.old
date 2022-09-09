@@ -3,6 +3,6 @@ var express = require('express'),
 
 var router = express.Router()
 
-router.get('/store', ctl.store.view)
+router.get('/', ctl.store.view)
 
 module.exports = router
