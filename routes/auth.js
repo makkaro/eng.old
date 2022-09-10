@@ -45,35 +45,45 @@ passport.deserializeUser(function (user, cb) {
 var router = express.Router()
 
 router.get('/login', function (req, res, next) {
-    res.render('login')
+    var view_data = Object.create(null)
+
+    if (req.isAuthenticated()) {
+        view_data.user = req.user
+    }
+
+    res.render('login', {view_data})
 })
 
-// router.post('/login', passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login'
-// }))
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+}))
 
-router.post('/login', (req, res, next)=> {
-    passport.authenticate('local', (err, user, failureDetails) => {
-        if (err) {
-            res.status(500).json({message: 'auth'})
-            return
-        }
+router.post('/logout', function (req, res, next) {
+    req.logout(function (err) {
+        if (err) return next(err)
+    })
+    res.redirect('/')
+})
 
-        if (!user) {
-            res.status(401).json(failureDetails)
-            return
-        }
+router.get('/register', function (req, res, next) {
+    res.render('register')
+})
 
-        req.login(user, (err) => {
-            if (err) {
-                res.status(500).json({message: 'session save went bad'})
-                return
-            }
-            console.log('---123456789098765432345678---', req.user)
-            res.status(200).json({errors: false, user: user})
+router.post('/register',function (req, res, next) {
+    var salt = crypto.randomBytes(16)
+    crypto.pbkdf2(req.body.pass, salt, 310000, 32, 'sha256', async function (err, hashed) {
+        if (err) return next(err)
+        var user = await db.user.create({
+            login: req.body.login,
+            pass: hashed,
+            salt: salt
         })
-    })(req, res, next)
+        req.login(user, function (err) {
+            if (err) return next(err)
+            res.redirect('/')
+        })
+    })
 })
 
 module.exports = router

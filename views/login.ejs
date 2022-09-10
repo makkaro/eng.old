@@ -1,6 +1,10 @@
 <center style='margin-top: 200px'>
     <h2>logowanie</h2>
 
+    <% if (view_data.user) { %>
+        <h3>zalogowano: <%= view_data.user.login %></h3>
+    <% } %>
+
     <form action='/login' method='POST'>
         <div>
             <label for='login'>login</label>
