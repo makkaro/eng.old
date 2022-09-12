@@ -6,10 +6,9 @@ var express = require('express'),
 
 passport.use(new LocalStrategy({usernameField: 'login', passwordField: 'pass'},
     async function verify(login, pass, cb) {
-    console.log(1)
-    var user = await db.user.findOne({where: {login: login}})
+    var user = await db.user.scope('full').findOne({where: {login: login}})
 
-    console.log(2)
+    console.log(user)
     if (!user) {
         return cb(null, false, {message: 'incorrect username'})
     }

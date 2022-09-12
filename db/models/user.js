@@ -11,5 +11,14 @@ module.exports = function (sqlz, DataTypes) {
             type: DataTypes.BLOB
         }
     })
+
+    user.addScope('defaultScope', {
+        attributes: {
+            exclude: ['pass', 'salt']
+        }
+    })
+
+    user.addScope('full', {})
+
     return user
 }
