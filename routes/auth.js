@@ -2,7 +2,8 @@ var express = require('express'),
     passport = require('passport'),
     LocalStrategy = require('passport-local'),
     crypto = require('crypto'),
-    db = require('../db')
+    db = require('../db'),
+    ctl = require('../ctl/auth')
 
 passport.use(new LocalStrategy({usernameField: 'login', passwordField: 'pass'},
     async function verify(login, pass, cb) {
@@ -43,46 +44,12 @@ passport.deserializeUser(function (user, cb) {
 
 var router = express.Router()
 
-router.get('/login', function (req, res, next) {
-    var view_data = Object.create(null)
+router.get('/login', ctl.login.get)
+router.post('/login', ctl.login.post)
 
-    if (req.isAuthenticated()) {
-        view_data.user = req.user
-    }
+router.post('/logout', ctl.logout.post)
 
-    res.render('login', {view_data})
-})
-
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}))
-
-router.post('/logout', function (req, res, next) {
-    req.logout(function (err) {
-        if (err) return next(err)
-    })
-    res.redirect('/')
-})
-
-router.get('/register', function (req, res, next) {
-    res.render('register')
-})
-
-router.post('/register',function (req, res, next) {
-    var salt = crypto.randomBytes(16)
-    crypto.pbkdf2(req.body.pass, salt, 310000, 32, 'sha256', async function (err, hashed) {
-        if (err) return next(err)
-        var user = await db.user.create({
-            login: req.body.login,
-            pass: hashed,
-            salt: salt
-        })
-        req.login(user, function (err) {
-            if (err) return next(err)
-            res.redirect('/')
-        })
-    })
-})
+router.get('/register', ctl.register.get)
+router.post('/register', ctl.register.post)
 
 module.exports = router

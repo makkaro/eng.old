@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('express-async-errors')
 
 var express = require('express'),
     passport = require('passport'),
@@ -29,6 +30,13 @@ server.use(passport.authenticate('session'))
 
 server.use('/', routes)
 server.use('/', auth)
+
+server.use(function (err, req, res, next) {
+    var view_data = Object.create(null)
+    view_data.error = err
+    res.status(err.status || 500)
+    res.render('error', {view_data})
+})
 
 void async function () {
     switch (process.argv[2]) {
