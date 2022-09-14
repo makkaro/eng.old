@@ -1,13 +1,13 @@
 require('dotenv').config()
 require('express-async-errors')
 
-var express = require('express'),
-    passport = require('passport'),
-    session = require('express-session'),
-    path = require('path'),
-    db = require('./db'),
+var express = require('express')
+
+var path = require('path')
+
+var db = require('./db'),
     routes = require('./routes'),
-    auth = require('./routes/auth')
+    session = require('./middleware/session')
 
 var server = express()
 
@@ -17,39 +17,21 @@ server.use(express.static(path.join(__dirname, 'public')))
 server.use(express.static(path.join(__dirname, 'public/img')))
 server.use(express.static(path.join(__dirname, 'public/scripts')))
 server.use(express.static(path.join(__dirname, 'node_modules/inter-ui')))
-
-server.use(express.json())
 server.use(express.urlencoded({extended: true}))
 
-server.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}))
-server.use(passport.authenticate('session'))
-
+server.use(session)
 server.use('/', routes)
-server.use('/', auth)
 
-server.use(function (err, req, res, next) {
-    var view_data = Object.create(null)
-    view_data.error = err
-    res.status(err.status || 500)
-    res.render('error', {view_data})
-})
+var port = process.env.PORT || 3000
 
 void async function () {
-    switch (process.argv[2]) {
-        case '--seed':
-            var seed = require('./db/seed')
-            await db.sqlz.sync({force: true})
-            await seed()
-            break
-        default:
-            var PORT = process.env.PORT
-            await db.sqlz.sync()
-            server.listen(PORT, function () {
-                console.info(`Server is listening on port ${PORT}`)
-            })
+    try {
+        await db.sqlz.sync()
+        server.listen(port, function () {
+            console.info(`URL: http://localhost:${port}/`)
+            console.info(`Server is listening on port ${port}...`)
+        })
+    } catch (err) {
+        console.error(err)
     }
 }()

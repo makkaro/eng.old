@@ -2,17 +2,17 @@
     <h2>logowanie</h2>
 
     <% if (view_data.user) { %>
-        <h3>zalogowano: <%= view_data.user.login %></h3>
+        <h3>zalogowano: <%= view_data.user.username %></h3>
     <% } %>
 
     <form action='/login' method='POST'>
         <div>
-            <label for='login'>login</label>
-            <input id='login' name='login' required autofocus>
+            <label for='username'>login</label>
+            <input id='username' name='username' required autofocus>
         </div>
         <div>
-            <label for='pass'>hasło</label>
-            <input id='pass' name='pass' type='password' required>
+            <label for='password'>hasło</label>
+            <input id='password' name='password' type='password' required>
         </div>
         <input type='submit' value='zaloguj'>
     </form>
