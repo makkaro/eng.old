@@ -11,7 +11,7 @@
 
 <!-- TODO tailwindcss placeholder assets everywhere ----------------------------------------------->
 <body>
-    <%- include('_header') %>
+    <%- include('header') %>
 
     <div class='relative z-40 hidden lg:hidden' id='filters'>
         <div class='fixed inset-0 bg-black bg-opacity-25'></div>
@@ -385,32 +385,33 @@
     <script>
         var view_data = JSON.parse('<%- JSON.stringify(view_data) %>')
 
-        function create_card({id, hidden, name, cost, img}) {
-            if (hidden) return ''
+        function create_card(item) {
+            if (item.hidden) return ''
             return (`
-                <a href='#' class='group'>
+                <a href='/product/${item.id}' class='group'>
                     <div class='aspect-w-1 aspect-h-1 w-full overflow-hidden
-                                rounded-lg xl:aspect-w-7 xl:aspect-h-8'>
+                                rounded-lg bg-gray-200 xl:aspect-w-7
+                                xl:aspect-h-8'>
                         <img class='h-full w-full object-cover object-center
                                     group-hover:opacity-75'
-                             src=${img}>
+                             src='https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'>
+                     </div>
 
-                        <h3 class='mt-4 text-sm text-gray-700'>
-                            ${name}
-                        </h3>
+                    <h3 class='mt-4 text-sm text-gray-700'>
+                        ${item.name}
+                    </h3>
 
-                        <p class='mt-1 text-lg font-medium text-gray-900'>
-                            ${cost} zł
-                        </p>
+                    <p class='mt-1 text-lg font-medium text-gray-900'>
+                        ${item.cost}
+                    </p>
 
-                        <button id=${id}>
-                            <span>
-                                <svg class='h-9 w-9 hover:scale-110'>
-                                    <use xlink:href='def.svg#cart-plus'/>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
+                    <button id='${item.id}'>
+                        <span>
+                            <svg class='h-9 w-9 hover:scale-110'>
+                                <use xlink:href='def.svg#cart-plus'/>
+                            </svg>
+                        </span>
+                    </button>
                 </a>
             `)
         }

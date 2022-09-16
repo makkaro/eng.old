@@ -20,7 +20,7 @@ module.exports = function (sqlz, data_types) {
         img: {
             type: data_types.STRING,
             allowNull: false,
-            defaultValue: 'product-def.png'
+            defaultValue: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg'
         }
     })
 

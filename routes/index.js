@@ -7,6 +7,7 @@ var ctl = require('../ctl')
 var router = express.Router()
 
 router.get('/', ctl.store.get)
+router.get('/product/:id', ctl.product.get)
 router.get('/login', ctl.login.get)
 router.post('/login', ctl.login.post)
 router.post('/logout', ctl.logout.post)

@@ -13,7 +13,7 @@ module.exports.get = async function (req, res) {
         attributes: Array('name')
     })
 
-    view_data.categories = await db.manufacturer.findAll({
+    view_data.manufacturers = await db.manufacturer.findAll({
         attributes: Array('name')
     })
 

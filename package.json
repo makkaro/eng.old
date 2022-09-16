@@ -18,11 +18,12 @@
         "sequelize"                 : "^6.21.4"
     },
     "devDependencies": {
-        "@tailwindcss/forms" : "^0.5.3",
-        "chance"             : "^1.1.8",
-        "concurrently"       : "^7.3.0",
-        "nodemon"            : "^2.0.19",
-        "sequelize-cli"      : "^6.4.1",
-        "tailwindcss"        : "^3.1.8"
+        "@tailwindcss/aspect-ratio" : "^0.4.2",
+        "@tailwindcss/forms"        : "^0.5.3",
+        "chance"                    : "^1.1.8",
+        "concurrently"              : "^7.3.0",
+        "nodemon"                   : "^2.0.19",
+        "sequelize-cli"             : "^6.4.1",
+        "tailwindcss"               : "^3.1.8"
     }
 }

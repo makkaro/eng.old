@@ -6,13 +6,14 @@
                                hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2
                                focus:ring-inset focus:ring-white collapse-toggle'
                         data-target='menu'>
-                    <svg class='h-6 w-6'>
-                        <use xlink:href='def.svg#menu'/>
-                    </svg>
+<!--                    <svg class='h-6 w-6'> TODO - bug - pollutes req.params
+-->
+<!--                        <use xlink:href='def.svg#menu'/>-->
+<!--                    </svg>-->
 
-                    <svg class='hidden h-6 w-6'>
-                        <use xlink:href='def.svg#x'/>
-                    </svg>
+<!--                    <svg class='hidden h-6 w-6'>-->
+<!--                        <use xlink:href='def.svg#x'/>-->
+<!--                    </svg>-->
                 </button>
             </div>
 
@@ -29,15 +30,15 @@
                 <div class='hidden sm:block sm:ml-6'>
                     <div class='flex space-x-4'>
                         <a class='px-3 py-2 rounded-md text-sm font-medium
-                                  <% if (view_data.url == '/store') { %>
+                                  <% if (false) { %>
                                   bg-gray-900 text-white
                                   <% } else { %>
                                   text-gray-300 hover:bg-gray-700 hover:text-white
                                   <% } %>'
-                           href='/store'>Produkty</a>
+                           href='/'>Produkty</a>
 
                         <a class='px-3 py-2 rounded-md text-sm font-medium
-                                  <% if (view_data.url == '/info') { %>
+                                  <% if (false) { %>
                                   bg-gray-900 text-white
                                   <% } else { %>
                                   text-gray-300 hover:bg-gray-700 hover:text-white
@@ -94,7 +95,7 @@
     <div class='sm:hidden hidden' id='menu'>
         <div class='px-2 pt-2 pb-3 space-y-1'>
             <a class='block px-3 py-2 rounded-md text-base font-medium
-                                  <% if (view_data.url == '/store') { %>
+                                  <% if (false) { %>
                                   bg-gray-900 text-white
                                   <% } else { %>
                                   text-gray-300 hover:bg-gray-700 hover:text-white
@@ -102,7 +103,7 @@
                href='/store'>Produkty</a>
 
             <a class='block px-3 py-2 rounded-md text-base font-medium
-                                  <% if (view_data.url == '/info') { %>
+                                  <% if (false) { %>
                                   bg-gray-900 text-white
                                   <% } else { %>
                                   text-gray-300 hover:bg-gray-700 hover:text-white
