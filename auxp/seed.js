@@ -55,9 +55,9 @@ async function seed() {
         setManufacturer(manufacturers.random())
     }})
 
-    delete Array.prototype.random
-
     await db.user.create({username: 'genghis', password: 'genghis1'})
+
+    delete Array.prototype.random
 }
 
 async function init() {

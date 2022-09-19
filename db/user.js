@@ -45,5 +45,9 @@ module.exports = function (sqlz, data_types) {
         return !crypto.timingSafeEqual(hash, this.password)
     }
 
+    user.associate = function (db) {
+        this.hasOne(db.cart)
+    }
+
     return user
 }
