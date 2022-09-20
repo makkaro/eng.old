@@ -6,6 +6,7 @@
     <% } %>
 
     <form action='/login' method='POST'>
+        <input type='hidden' id='cart' name='cart'>
         <div>
             <label for='username'>login</label>
             <input id='username' name='username' required autofocus>
@@ -23,3 +24,9 @@
 
     <a href='/' style='margin-top: 100px'>strona główna</a>
 </center>
+
+<script defer>
+    var input = document.getElementById('cart')
+
+    input.value = localStorage.getItem('cart')
+</script>
