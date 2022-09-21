@@ -1,0 +1,26 @@
+<% if (!cart) { %>
+    <script></script>
+<% } %>
+
+<script>
+    var cart = JSON.parse('<%- JSON.stringify(cart) %>')
+    console.log(cart)
+</script>
+
+<script>
+    var cart = undefined
+
+    var xhr = new XMLHttpRequest
+
+    xhr.responseType = 'json'
+    xhr.onload = onload
+    xhr.open('POST', '/cart')
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.send(localStorage.getItem('cart'))
+
+    function onload() {
+        console.log(this.response)
+    }
+</script>
+
+<center><h2>OK!</h2></center>

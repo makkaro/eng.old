@@ -18,6 +18,7 @@ server.use(express.static(path.join(__dirname, 'public/img')))
 server.use(express.static(path.join(__dirname, 'public/scripts')))
 server.use(express.static(path.join(__dirname, 'node_modules/inter-ui')))
 server.use(express.urlencoded({extended: true}))
+server.use(express.json())
 
 server.use(session)
 server.use('/', routes)

@@ -13,5 +13,7 @@ router.post('/login', ctl.login.post)
 router.post('/logout', ctl.logout.post)
 router.get('/register', ctl.register.get)
 router.post('/register', ctl.register.post)
+router.get('/cart', ctl.cart.get)
+router.post('/cart', ctl.cart.post)
 
 module.exports = router

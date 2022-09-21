@@ -17,8 +17,7 @@ module.exports.post = async function (req, res) {
         password: req.body.password
     })
 
+    req.session.user = await db.user.findByPk(user.id)
     req.session.authenticated = true
-    req.session.user = user
-
     res.redirect('/')
 }

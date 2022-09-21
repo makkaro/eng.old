@@ -31,7 +31,7 @@ module.exports.post = async function (req, res) {
             var local = JSON.parse(req.body.cart)
         }
 
-        if (local){
+        if (local) {
             for (var item of local.items) {
                 var product = await db.product.findByPk(item.id)
                 user.cart.addProduct(product, {through: {amount: item.amount}})
@@ -40,9 +40,7 @@ module.exports.post = async function (req, res) {
 
     }
 
-    console.log(await user.cart.getProducts())
-
+    req.session.user = await db.user.findByPk(user.id)
     req.session.authenticated = true
-    req.session.user = user
     res.redirect('/')
 }
