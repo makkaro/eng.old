@@ -1,11 +1,9 @@
-<% if (!cart) { %>
-    <script></script>
+<% if (items) { %>
+    <script>
+        var items = JSON.parse('<%- JSON.stringify(items) %>')
+        console.log(items)
+    </script>
 <% } %>
-
-<script>
-    var cart = JSON.parse('<%- JSON.stringify(cart) %>')
-    console.log(cart)
-</script>
 
 <script>
     var cart = undefined
@@ -16,11 +14,20 @@
     xhr.onload = onload
     xhr.open('POST', '/cart')
     xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(localStorage.getItem('cart'))
+    xhr.send(localStorage.getItem('templates'))
 
     function onload() {
         console.log(this.response)
     }
 </script>
+
+<% if (!items) { %>
+    <script>
+        <%%>
+    </script>
+<% } %>
+
+
+
 
 <center><h2>OK!</h2></center>

@@ -128,3 +128,15 @@
            placeholder='Wyszukaj produkt'
            id='search'>
 </div>
+
+<script>
+    var drop_toggles = document.querySelectorAll('.drop-toggle')
+    Array.from(drop_toggles).forEach(toggle => {
+        toggle.addEventListener('click', function () {
+            var target = this.getAttribute('data-target')
+            var drop = document.getElementById(target)
+            drop.classList.toggle('opacity-0')
+            drop.classList.toggle('scale-95')
+        })
+    })
+</script>

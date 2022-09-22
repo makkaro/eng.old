@@ -1,19 +1,20 @@
-document.querySelector('form').addEventListener('submit', submit)
+document.querySelector('form').addEventListener('submit', cb)
 
-function submit(event) {
+function cb(event) {
     event.preventDefault()
 
-    var id = +this.querySelector('input[name="id"]').value,
-        amount = +this.querySelector('input[name="amount"]').value
+    var id = +this.querySelector('input[name=\'id\']').value,
+        amount = +this.querySelector('input[name=\'amount\']').value
 
-    var cart = JSON.parse(localStorage.getItem('cart')) || {items: Array()},
-        item = cart.items.find(_ => _.id == id)
+    var templates = JSON.parse(localStorage.getItem('templates')) || Array()
 
-    if (item) {
-        item.amount += amount
+    var template = templates.find(_ => _.id == id)
+
+    if (template) {
+        template.amount += amount
     } else {
-        cart.items.unshift({id, amount})
+        templates.unshift({id, amount})
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart))
+    localStorage.setItem('templates', JSON.stringify(templates))
 }

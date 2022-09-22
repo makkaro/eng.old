@@ -1,7 +1,8 @@
 require('dotenv').config()
 require('express-async-errors')
 
-var express = require('express')
+var express = require('express'),
+    methodOverride = require('method-override')
 
 var path = require('path')
 
@@ -12,6 +13,8 @@ var db = require('./db'),
 var server = express()
 
 server.set('view engine', 'ejs')
+
+server.use(methodOverride('_method'))
 
 server.use(express.static(path.join(__dirname, 'public')))
 server.use(express.static(path.join(__dirname, 'public/img')))

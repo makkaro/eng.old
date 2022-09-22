@@ -39,6 +39,10 @@ module.exports = function (sqlz, data_types) {
         user.password = await pbkdf2_async(user.password, user.salt, ...params)
     })
 
+    user.afterCreate(async function (user) {
+        await user.createCart()
+    })
+
     user.prototype.unauthenticated = async function (password) {
         var hash = await pbkdf2_async(password, this.salt, ...params)
 

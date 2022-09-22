@@ -11,7 +11,7 @@
             <h2 class='mt-2 text-2xl text-gray-800'><%= item.cost %> zł</h2>
         </div>
 
-        <form action='#' method='POST'>
+        <form method='POST' action='/cart?_method=PATCH'>
             <input type='hidden' name='id' value='<%= item.id %>'>
 
             <div class='mt-10'>
@@ -35,7 +35,3 @@
         </form>
     </div>
 </div>
-
-<% if (!authenticated) { %>
-    <script defer src='/card-unauthenticated.js'></script>
-<% } %>
