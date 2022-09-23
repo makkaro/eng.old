@@ -40,9 +40,6 @@ module.exports.post = async function (req, res) {
     res.json(items)
 }
 
-
-
-
 module.exports.add = async (req, res) => {
     var add_authenticated = async ({id, amount}) => {
         var user = await db.user.findByPk(req.session.user.id),
@@ -54,7 +51,6 @@ module.exports.add = async (req, res) => {
 
         for (var item of items) {
             if (item.id == id) {
-                console.log('LOL-')
                 var new_amt = item.cart_item.amount + +amount
                 var c = item.cart_item
                 console.log(c.toJSON())
@@ -63,20 +59,45 @@ module.exports.add = async (req, res) => {
             }
         }
     }
-
-    var add_unauthenticated = ({id, amount}) => {
-        req.session.templates ??= Array()
-
-        var template = req.session.templates.find(_ => _.id == id)
-
-        template
-            ? template.amount += +amount
-            : req.session.templates.unshift({id, amount: +amount})
-    }
-
-    req.session.authenticated
-        ? await add_authenticated(req.body)
-        : add_unauthenticated(req.body)
-
-    res.json(req.session)
 }
+
+/* -------------------------------------------------------------------------- */
+
+// module.exports.add = async (req, res) => {
+//     var args = Array(req.body.id, +req.body.diff)
+//
+//     if (req.session.authenticated) return await add_db(...args)
+//
+//     add_session(...args)
+// }
+//
+// async function add_db(id, diff) {
+//     var cart = await db.cart.findOne({
+//         where: {userId: req.session.user.id},
+//         include: db.product
+//     })
+//
+//     var item = cart.products.find(_ => _.id == id)
+//
+//     if (item) {
+//
+//     }
+// }
+//
+// function add_session(id, diff) {
+//
+// }
+//
+// // async function $db({id, amount}) {
+// //     modifier
+// //
+// //     var cart = await db.cart.findOne({
+// //         where: {userId: req.session.user.id},
+// //         include: db.product
+// //     })
+// //
+// //     var item = cart.products.find(_ => _.id == id)
+// //
+// //     item
+// //         ? await item.update({amount: +amount +   })
+// // }

@@ -11,7 +11,7 @@
             <h2 class='mt-2 text-2xl text-gray-800'><%= item.cost %> zł</h2>
         </div>
 
-        <form method='POST' action='/cart?_method=PATCH'>
+        <form method='POST' action='/product/?_method=PATCH'>
             <input type='hidden' name='id' value='<%= item.id %>'>
 
             <div class='mt-10'>
@@ -23,7 +23,8 @@
                                   text-gray-900 rounded-md border-gray-200
                                   focus:border-white focus:ring-2
                                   focus:ring-emerald-500 hover:bg-gray-50'
-                           type='number' name='amount' value='1'>
+                           type='number' name='diff' value='1' min='0'
+                           oninput='validity.valid || (value = "")'>
                 </div>
             </div>
 
