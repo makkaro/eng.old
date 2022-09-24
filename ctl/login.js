@@ -33,7 +33,13 @@ module.exports.post = async function (req, res) {
         delete req.session.templates
     }
 
-    req.session.user = await db.user.findByPk(user.id)
+    req.session.user = {
+        id: user.id,
+        username: user.username,
+        cartId: user.cart.id
+    }
+
     req.session.authenticated = true
+
     res.redirect('/')
 }

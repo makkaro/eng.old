@@ -40,11 +40,11 @@ async function update_db(user, id, diff) {
         include: db.product
     })
 
-    var item = cart.products.find(_ => _.id == id)?.cart_item
+    var item = cart.products.find(_ => _.id == id)?.item
 
     item
         ? await item.update({amount: item.amount + diff})
-        : await db.cart_item.create({
+        : await db.item.create({
             cartId: cart.id,
             productId: id,
             amount: diff

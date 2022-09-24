@@ -1,103 +1,46 @@
 var db = require('../db')
 
+
 /* -------------------------------------------------------------------------- */
 
-module.exports.get = async function (req, res) {
-    var authenticated = req.session.authenticated
+module.exports.view = async (req, res) => {
+    var {authenticated, templates} = req.session,
+        {cartId, ...user} = req.session.user
+
+    var records = undefined
 
     if (authenticated) {
-        var cart = await db.cart.findOne({
-            where: {userId: req.session.user.id},
-            include: db.product
-        })
+        var cart = await db.cart.findByPk(cartId, {include: db.product})
 
-        var cb = ({id, name, cost, img, cart_item: {amount}}) => (
-            {id, name, cost, img, amount}
-        )
-
-        var items = cart.products.map(cb)
+        records = cart.products
+    } else {
+        if (templates?.length) {
+            records = await db.product.findAll({
+                where: {id: templates.map($ => $.id)}
+            })
+        }
     }
 
-    res.locals = {authenticated, items, ...res.locals}
+    var items = records?.map(({id, name, cost, img, item: {amount}}) => {
+        return {id, name, cost, img, amount}
+    })
+
+    res.locals = {items, authenticated, user: {id, username}, ...req.locals}
+
     res.render('cart')
 }
 
-module.exports.post = async function (req, res) {
-    var templates = req.body
+function items_from(records) {
+    if (!records?.length) return undefined
 
-    var products = await db.product.findAll({
-        where: {id: templates.map(({id}) => id)}
-    })
-
-    var cb = ({id, name, cost, img}) => {
-        var {amount} = templates.find(_ => _.id == id)
-
+    return records.map(({id, name, cost, img, item: {amount}}) => {
         return {id, name, cost, img, amount}
-    }
-
-    var items = products.map(cb)
-
-    res.json(items)
+    })
 }
 
-module.exports.add = async (req, res) => {
-    var add_authenticated = async ({id, amount}) => {
-        var user = await db.user.findByPk(req.session.user.id),
-            cart = await user.getCart({include: db.product})
-
-        var items = await cart.getProducts()
-
-        console.log(items)
-
-        for (var item of items) {
-            if (item.id == id) {
-                var new_amt = item.cart_item.amount + +amount
-                var c = item.cart_item
-                console.log(c.toJSON())
-                await c.update({amount: new_amt})
-                return
-            }
-        }
-    }
-}
 
 /* -------------------------------------------------------------------------- */
 
-// module.exports.add = async (req, res) => {
-//     var args = Array(req.body.id, +req.body.diff)
-//
-//     if (req.session.authenticated) return await add_db(...args)
-//
-//     add_session(...args)
-// }
-//
-// async function add_db(id, diff) {
-//     var cart = await db.cart.findOne({
-//         where: {userId: req.session.user.id},
-//         include: db.product
-//     })
-//
-//     var item = cart.products.find(_ => _.id == id)
-//
-//     if (item) {
-//
-//     }
-// }
-//
-// function add_session(id, diff) {
-//
-// }
-//
-// // async function $db({id, amount}) {
-// //     modifier
-// //
-// //     var cart = await db.cart.findOne({
-// //         where: {userId: req.session.user.id},
-// //         include: db.product
-// //     })
-// //
-// //     var item = cart.products.find(_ => _.id == id)
-// //
-// //     item
-// //         ? await item.update({amount: +amount +   })
-// // }
+module.exports.update = async (req, res) => {
+
+}

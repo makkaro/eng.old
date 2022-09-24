@@ -1,6 +1,3 @@
-
-/* -------------------------------------------------------------------------- */
-
 module.exports = {
     development: {
         database : process.env.DEVEL_DB_NAME,

@@ -1,6 +1,9 @@
 var crypto = require('crypto'),
     util = require('util')
 
+
+/* -------------------------------------------------------------------------- */
+
 var pbkdf2_async = util.promisify(crypto.pbkdf2),
     randomBytes_async = util.promisify(crypto.randomBytes)
 
@@ -11,47 +14,55 @@ var {CR_ITERATIONS: iterations, CR_KEY_LENGTH: key_length, CR_DIGEST: digest}
 
 var params = Array(+iterations || 310000, +key_length || 32, digest || 'sha256')
 
+
 /* -------------------------------------------------------------------------- */
 
-module.exports = function (sqlz, data_types) {
-    var user = sqlz.define('user', {
+module.exports = function (sqlz, DataTypes) {
+    var User = sqlz.define('User', {
         username: {
-            type: data_types.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isAlphanumeric: true,
+                notEmpty: true,
+                len: Array(3, 16)
+            }
         },
         password: {
-            type: data_types.BLOB,
-            allowNull: false
+            type: DataTypes.BLOB,
+            allowNull: false,
+            validate: {
+                len: Array(4, 64) // TODO
+            }
         },
         salt: {
-            type: data_types.BLOB,
+            type: DataTypes.BLOB,
             allowNull: false
         }
     })
 
-    user.addScope('defaultScope', {attributes: {exclude: ['password', 'salt']}})
-    user.addScope('full', {})
+    User.addScope('defaultScope', {
+        attributes: {include: Array('id', 'username')}
+    })
 
-    user.beforeValidate(async function (user) {
+    User.addScope('full', {})
+
+    User.beforeValidate(async user => {
         user.salt = await randomBytes_async(salt_size)
 
         user.password = await pbkdf2_async(user.password, user.salt, ...params)
     })
 
-    user.afterCreate(async function (user) {
-        await user.createCart()
-    })
-
-    user.prototype.unauthenticated = async function (password) {
+    User.prototype.unauthenticated = async function (password) {
         var hash = await pbkdf2_async(password, this.salt, ...params)
 
         return !crypto.timingSafeEqual(hash, this.password)
     }
 
-    user.associate = function (db) {
-        this.hasOne(db.cart)
+    User.associate = function (db) {
+        this.belongsToMany(db.Product, {through: db.Item})
     }
 
-    return user
+    return User
 }
