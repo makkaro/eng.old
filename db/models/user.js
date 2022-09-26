@@ -46,6 +46,11 @@ module.exports = function (sqlz, DataTypes) {
         attributes: {include: Array('id', 'username')}
     })
 
+    User.addScope('withItems', {
+        attributes: {include: Array('id', 'username')},
+        include: {model: db.Product, include: db.Item}
+    })
+
     User.addScope('full', {})
 
     User.beforeValidate(async user => {

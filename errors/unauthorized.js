@@ -1,17 +1,19 @@
 var {StatusCodes} = require('http-status-codes')
 
+
 /* -------------------------------------------------------------------------- */
 
-function unauthorized(...args) {
+function Unauthorized(...args) {
     var err = Reflect.construct(Error, args)
-    Reflect.setPrototypeOf(err, Reflect.getPrototypeOf(this))
+
+    Object.setPrototypeOf(err, Object.getPrototypeOf(this))
 
     err.statusCode = StatusCodes.UNAUTHORIZED
 
     return err
 }
 
-unauthorized.prototype = Object.create(Error.prototype, {
+Unauthorized.prototype = Object.create(Error.prototype, {
     constructor: {
         value: Error,
         enumerable: false,
@@ -20,6 +22,6 @@ unauthorized.prototype = Object.create(Error.prototype, {
     }
 })
 
-Reflect.setPrototypeOf(unauthorized, Error)
+Object.setPrototypeOf(Unauthorized, Error)
 
-module.exports = unauthorized
+module.exports = Unauthorized

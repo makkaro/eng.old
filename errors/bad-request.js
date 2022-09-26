@@ -1,17 +1,19 @@
 var {StatusCodes} = require('http-status-codes')
 
+
 /* -------------------------------------------------------------------------- */
 
-function bad_request(...args) {
+function BadRequest(...args) {
     var err = Reflect.construct(Error, args)
-    Reflect.setPrototypeOf(err, Reflect.getPrototypeOf(this))
+
+    Object.setPrototypeOf(err, Object.getPrototypeOf(this))
 
     err.statusCode = StatusCodes.BAD_REQUEST
 
     return err
 }
 
-bad_request.prototype = Object.create(Error.prototype, {
+BadRequest.prototype = Object.create(Error.prototype, {
     constructor: {
         value: Error,
         enumerable: false,
@@ -20,6 +22,6 @@ bad_request.prototype = Object.create(Error.prototype, {
     }
 })
 
-Reflect.setPrototypeOf(bad_request, Error)
+Object.setPrototypeOf(BadRequest, Error)
 
-module.exports = bad_request
+module.exports = BadRequest
