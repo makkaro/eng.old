@@ -1,11 +1,13 @@
 <center style='margin-top: 200px'>
+    <%- include('header') %>
+
     <h2>logowanie</h2>
 
-    <% if (view_data.user) { %>
-        <h3>zalogowano: <%= view_data.user.username %></h3>
+    <% if (user) { %>
+        <h3>zalogowano: <%= user.username %></h3>
     <% } %>
 
-    <form action='/login' method='POST'>
+    <form method='POST' action='/login'>
         <div>
             <label for='username'>login</label>
             <input id='username' name='username' required autofocus>
@@ -17,9 +19,8 @@
         <input type='submit' value='zaloguj'>
     </form>
 
-    <form action='/logout' method='POST' style='margin-top: 100px'>
+    <form method='POST' action='/login/?_method=DELETE'
+          style='margin-top: 100px'>
         <input type='submit' value='wyloguj'>
     </form>
-
-    <a href='/' style='margin-top: 100px'>strona główna</a>
 </center>

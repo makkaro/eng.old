@@ -39,6 +39,19 @@ module.exports = function (sqlz, DataTypes) {
         salt: {
             type: DataTypes.BLOB,
             allowNull: false
+        },
+        items: {
+            type: DataTypes.VIRTUAL,
+            get: function () {
+                return this.products?.map($ => {
+                    var {id, name, cost, img, item: {amount}} = $
+
+                    return {id, name, cost, img, amount}
+                })
+            },
+            set: function () {
+                throw Error('Unable to set the value of a virtual field.')
+            }
         }
     })
 
@@ -47,8 +60,7 @@ module.exports = function (sqlz, DataTypes) {
     })
 
     User.addScope('withItems', {
-        attributes: {include: Array('id', 'username')},
-        include: {model: db.Product, include: db.Item}
+        attributes: {include: Array('id', 'username', 'items')}
     })
 
     User.addScope('full', {})

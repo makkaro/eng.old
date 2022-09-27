@@ -1,23 +1,26 @@
 var db = require('../db'),
     errors = require('../errors')
 
-/* -------------------------------------------------------------------------- */
 
-module.exports.get = async function (req, res) {
+/* -------------------------------------------------------------------------- */
+module.exports.view = async (req, res) => {
     res.render('register')
 }
 
-module.exports.post = async function (req, res) {
-    if (await db.user.findOne({where: {username: req.body.username}})) {
-        throw errors.bad_request('username taken')
+
+/* -------------------------------------------------------------------------- */
+module.exports.create = async (req, res) => {
+    var {username, password} = req.body
+
+    if (await db.User.findOne({where: {username}})) {
+        throw errors.BadRequest('Username taken.')
     }
 
-    var user = await db.user.create({
-        username: req.body.username,
-        password: req.body.password
-    })
+    var user = await db.User.create({username, password})
 
-    req.session.user = await db.user.findByPk(user.id)
+    req.session.user = {id, username} = user
+
     req.session.authenticated = true
-    res.redirect('/')
+
+    res.redirect('/login')
 }

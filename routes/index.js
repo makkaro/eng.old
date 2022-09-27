@@ -2,18 +2,33 @@ var express = require('express')
 
 var ctl = require('../ctl')
 
+
 /* -------------------------------------------------------------------------- */
 
 var router = express.Router()
 
-router.get('/', ctl.store.get)
-router.get('/product/:id', ctl.product.view)
-router.patch('/product', ctl.product.update)
-router.get('/login', ctl.login.get)
-router.post('/login', ctl.login.post)
-router.post('/logout', ctl.logout.post)
-router.get('/register', ctl.register.get)
-router.post('/register', ctl.register.post)
-router.get('/cart', ctl.cart.view)
+
+/* -------------------------------------------------------------------------- */
+
+router.get('/store', ctl.store.view)
+
+router.get('/store/product/:id', ctl.product.view)
+router.patch('/store/product', ctl.product.update)
+
+router.get('/store/cart', ctl.cart.view)
+router.patch('/store/cart', ctl.cart.update)
+
+
+/* -------------------------------------------------------------------------- */
+
+router.get('/login', ctl.login.view)
+router.post('/login', ctl.login.create)
+router.delete('/login', ctl.login.destroy)
+
+router.get('/register', ctl.register.view)
+router.post('/register', ctl.register.create)
+
+
+/* -------------------------------------------------------------------------- */
 
 module.exports = router

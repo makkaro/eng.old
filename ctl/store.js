@@ -1,15 +1,12 @@
 var db = require('../db')
 
+
 /* -------------------------------------------------------------------------- */
 
-module.exports.get = async function (req, res) {
-    var view_data = Object.create(null)
+module.exports.view = async (req, res) => {
+    res.locals.categories = await db.Category.findAll()
+    res.locals.manufacturers = await db.Category.findAll()
+    res.locals.products = await db.Category.findAll()
 
-    view_data.products = await db.Product.findAll()
-
-    view_data.categories = await db.Category.findAll()
-
-    view_data.manufacturers = await db.Manufacturer.findAll()
-
-    res.render('store', {view_data})
+    res.render('store')
 }

@@ -4,7 +4,7 @@ var fs = require('fs'),
 
 /* -------------------------------------------------------------------------- */
 
-var errors = Object.create(null)
+var errors = Object.create(undefined)
 
 var valid = file => {
     return file != path.basename(__filename)

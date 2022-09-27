@@ -1,12 +1,13 @@
 var session = require('express-session'),
-    store = require('connect-session-sequelize')(session.Store)
+    Store = require('connect-session-sequelize')(session.Store)
 
 var db = require('../db')
+
 
 /* -------------------------------------------------------------------------- */
 
 module.exports = session({
-    store: new store({db: db.sqlz}),
+    store: new Store({db: db.sqlz}),
     name: 'sid',
     saveUninitialized: false,
     resave: false,
