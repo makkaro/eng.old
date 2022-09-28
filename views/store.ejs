@@ -6,7 +6,7 @@
 
     <link rel='stylesheet' href='main.css'>
 
-    <title><%= TODO %></title>
+    <title>TODO</title>
 </head>
 
 <body>
@@ -382,12 +382,11 @@
     </div>
 
     <script>
-        var view_data = JSON.parse('<%- JSON.stringify(view_data) %>')
+        var products = JSON.parse('<%- JSON.stringify(products) %>')
 
         function create_card(item) {
-            if (item.hidden) return ''
             return (`
-                <a href='/product/${item.id}' class='group'>
+                <a href='/store/product/${item.id}' class='group'>
                     <div class='aspect-w-1 aspect-h-1 w-full overflow-hidden
                                 rounded-lg bg-gray-200 xl:aspect-w-7
                                 xl:aspect-h-8'>
@@ -403,14 +402,6 @@
                     <p class='mt-1 text-lg font-medium text-gray-900'>
                         ${item.cost}
                     </p>
-
-                    <button id='${item.id}'>
-                        <span>
-                            <svg class='h-9 w-9 hover:scale-110'>
-                                <use xlink:href='def.svg#cart-plus'/>
-                            </svg>
-                        </span>
-                    </button>
                 </a>
             `)
         }
@@ -426,28 +417,6 @@
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('grid-container').innerHTML
                 = create_grid(products)
-
-            Array.from(products).forEach(item => {
-                if (item.hidden) return
-                document
-                    .getElementById(item.id)
-                    .addEventListener('click', function () {
-                        var cart = JSON.parse(localStorage.getItem('cart')) ||
-                            { items: Array() }
-                        if (cart.items.some(cart_item => {
-                            return cart_item.hasOwnProperty('id') &&
-                                cart_item.hasOwnProperty('amount') &&
-                                cart_item['id'] == item.id
-                        })) {
-                            cart.items.find(cart_item => cart_item['id'] ==
-                                item.id)['amount']++
-                        } else {
-                            cart.items.unshift({id: item.id, amount: 1})
-                        }
-                        console.log(cart)
-                        localStorage.setItem('cart', JSON.stringify(cart))
-                    })
-            })
         })
 
         var lg_search = document.getElementById('lg-search'),

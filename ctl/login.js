@@ -6,6 +6,8 @@ var db = require('../db'),
 
 /* -------------------------------------------------------------------------- */
 module.exports.view = async (req, res) => {
+    res.locals.user = undefined
+
     if (req.session.authenticated) {
         res.locals.user = req.session.user
     }
@@ -20,15 +22,18 @@ module.exports.create = async (req, res) => {
         where: {username: req.body.username}
     })
 
+    console.log(user.items)
+
     if (!user || await user.unauthenticated(req.body.password)) {
         throw errors.Unauthorized('Invalid credentials.')
     }
 
     if (req.session.templates && user.items.length < 1) {
         for (var template of req.session.templates) {
+            console.log(template)
             await db.Item.create({
-                userId: user.id,
-                productId: template.id,
+                UserId: user.id,
+                ProductId: template.id,
                 amount: template.amount
             })
         }

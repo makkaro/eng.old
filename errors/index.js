@@ -4,7 +4,7 @@ var fs = require('fs'),
 
 /* -------------------------------------------------------------------------- */
 
-var errors = Object.create(undefined)
+var errors = Object.create(null)
 
 var valid = file => {
     return file != path.basename(__filename)
@@ -13,7 +13,7 @@ var valid = file => {
 }
 
 var associate = file => {
-    var constructor = file.replaceAll('-', '')
+    var constructor = file.substr(0, file.length - 3).replaceAll('-', '')
 
     errors[constructor] = require(path.join(__dirname, file))
 }

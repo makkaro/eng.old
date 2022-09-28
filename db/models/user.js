@@ -43,11 +43,12 @@ module.exports = function (sqlz, DataTypes) {
         items: {
             type: DataTypes.VIRTUAL,
             get: function () {
-                return this.products?.map($ => {
-                    var {id, name, cost, img, item: {amount}} = $
+                console.log(this)
+                return this.Products?.map($ => {
+                    var {id, name, cost, img, Item: {amount}} = $
 
                     return {id, name, cost, img, amount}
-                })
+                }) || Array()
             },
             set: function () {
                 throw Error('Unable to set the value of a virtual field.')
@@ -60,6 +61,7 @@ module.exports = function (sqlz, DataTypes) {
     })
 
     User.addScope('withItems', {
+        include: 'Products',
         attributes: {include: Array('id', 'username', 'items')}
     })
 
