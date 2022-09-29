@@ -12,11 +12,11 @@ module.exports.view = async (req, res) => {
 module.exports.create = async (req, res) => {
     var {username, password} = req.body
 
-    if (await db.User.findOne({where: {username}})) {
+    if (await db.user.findOne({where: {username}})) {
         throw errors.BadRequest('Username taken.')
     }
 
-    var user = await db.User.create({username, password})
+    var user = await db.user.create({username, password})
 
     req.session.user = {id, username} = user
 

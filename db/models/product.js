@@ -1,5 +1,5 @@
 module.exports = function (sqlz, DataTypes) {
-    var Product = sqlz.define('Product', {
+    var product = sqlz.define('product', {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -15,17 +15,19 @@ module.exports = function (sqlz, DataTypes) {
         }
     })
 
-    Product.addScope('defaultScope', {
-        attributes: {include: Array('id', 'name', 'cost', 'img')}
-    })
-
-    Product.addScope('full', {})
-
-    Product.associate = function (db) {
-        this.belongsTo(db.Category)
-        this.belongsTo(db.Manufacturer)
-        this.belongsToMany(db.User, {through: db.Item})
+    product.associate = function (db) {
+        this.belongsTo(db.category)
+        this.belongsTo(db.manufacturer)
+        this.belongsToMany(db.user, {through: db.item})
     }
 
-    return Product
+    product.addScope('defaultScope', {
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }
+    })
+
+    product.addScope('full', Object.create(null))
+
+    return product
 }

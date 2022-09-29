@@ -1,5 +1,5 @@
 module.exports = function (sqlz, DataTypes) {
-    var Item = sqlz.define('Item', {
+    var item = sqlz.define('item', {
         amount: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -8,11 +8,13 @@ module.exports = function (sqlz, DataTypes) {
         }
     })
 
-    Item.addScope('defaultScope', {
-        attributes: {include: Array('amount')}
+    item.addScope('defaultScope', {
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }
     })
 
-    Item.addScope('full', {})
+    item.addScope('full', {})
 
-    return Item
+    return item
 }

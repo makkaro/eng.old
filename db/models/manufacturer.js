@@ -1,20 +1,22 @@
 module.exports = function (sqlz, DataTypes) {
-    var Manufacturer = sqlz.define('Manufacturer', {
+    var manufacturer = sqlz.define('manufacturer', {
         name: {
             type: DataTypes.STRING,
             allowNull: false
         }
     })
 
-    Manufacturer.addScope('defaultScope', {
-        attributes: {include: Array('name')}
-    })
-
-    Manufacturer.addScope('full', {})
-
-    Manufacturer.associate = function (db) {
-        this.hasMany(db.Product)
+    manufacturer.associate = function (db) {
+        this.hasMany(db.product)
     }
 
-    return Manufacturer
+    manufacturer.addScope('defaultScope', {
+        attributes: {
+            exclude: ['id', 'createdAt', 'updatedAt']
+        }
+    })
+
+    manufacturer.addScope('full', Object.create(null))
+
+    return manufacturer
 }

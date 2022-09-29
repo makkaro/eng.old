@@ -18,30 +18,27 @@ module.exports.view = async (req, res) => {
 
 /* -------------------------------------------------------------------------- */
 module.exports.create = async (req, res) => {
-    var user = await db.User.scope('withItems').findOne({
+    var user = await db.user.scope('full').findOne({
         where: {username: req.body.username}
     })
-
-    console.log(user.items)
 
     if (!user || await user.unauthenticated(req.body.password)) {
         throw errors.Unauthorized('Invalid credentials.')
     }
 
-    if (req.session.templates && user.items.length < 1) {
+    if (req.session.templates && (!user.items || user.items.length < 1)) {
         for (var template of req.session.templates) {
-            console.log(template)
-            await db.Item.create({
-                UserId: user.id,
-                ProductId: template.id,
-                amount: template.amount
+            await db.item.create({
+                amount: template.amount,
+                productId: template.id,
+                userId: user.id
             })
         }
 
         delete req.session.templates
     }
 
-    req.session.user = {id, username} = user
+    req.session.user = {id: user.id, username: user.username}
 
     req.session.authenticated = true
 

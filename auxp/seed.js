@@ -8,9 +8,9 @@ var db = require('../db')
 /* -------------------------------------------------------------------------- */
 
 chance.mixin({
-    Category: () => ({name: chance.word()}),
-    Manufacturer: () => ({name: chance.company()}),
-    Product: () => ({
+    category: () => ({name: chance.word()}),
+    manufacturer: () => ({name: chance.company()}),
+    product: () => ({
         name: chance.word(),
         cost: chance.floating({min: 0, max: 9999.99, fixed: 2})
     })
@@ -42,9 +42,9 @@ async function seed() {
         return entities
     }
 
-    var categories = await entities('Category', 6),
-        manufacturers = await entities('Manufacturer', 8),
-        products = await entities('Product', 30)
+    var categories = await entities('category', 6),
+        manufacturers = await entities('manufacturer', 8),
+        products = await entities('product', 30)
 
 
     products.forEach(product => { with (product) {
@@ -52,7 +52,7 @@ async function seed() {
         setManufacturer(manufacturers.random())
     }})
 
-    await db.User.create({username: 'genghis', password: 'geng'})
+    await db.user.create({username: 'genghis', password: 'geng'})
 
     delete Array.prototype.random
 }
