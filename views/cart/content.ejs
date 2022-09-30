@@ -1,4 +1,31 @@
-<% if (items) { items.forEach($ => { %>
-    <center><h2 style='margin-top: 10px'><%= $.name %></h2></center>
-    <center><h3 style='margin-top: 4px'><%= $.amount %></h3></center>
-<% })} %>
+<div class='grid grid-cols-1 sm:grid-cols-6 gap-4 lg:gap-8'>
+    <div class='sm:col-span-3 lg:col-span-4 divide-y divide-gray-200'>
+        <% items.forEach($ => { %>
+            <%- include('card', {$}) %>
+        <% }) %>
+    </div>
+
+    <div class='sm:col-span-3 lg:col-span-2 border-t sm:border-t-0 sm:border-l
+                px-4 sm:px-6 py-6'>
+        <div class='flex justify-between'>
+            <p class='font-medium'>Razem</p>
+
+            <p class='font-medium'><%= parsePLN(total) %></p>
+        </div>
+
+        <p class='mt-0.5 text-sm text-gray-500'>+ koszt dostawy</p>
+
+        <a class='inline-block mt-8 py-3 w-full border border-transparent
+                  rounded-md shadow-sm bg-emerald-600 hover:bg-emerald-700'
+           href='#'>
+            <center class='font-medium text-white'>Zamów teraz</center>
+        </a>
+
+        <center class='mt-6 text-sm'>
+            <span class='text-gray-500'>lub</span>
+
+            <a class='font-medium text-emerald-600 hover:text-emerald-500'
+               href='/store'>Kontynuuj zakupy -></a>
+        </center>
+    </div>
+</div>

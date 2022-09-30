@@ -12,7 +12,7 @@ chance.mixin({
     manufacturer: () => ({name: chance.company()}),
     product: () => ({
         name: chance.word(),
-        cost: chance.floating({min: 0, max: 9999.99, fixed: 2})
+        cost: chance.integer({min: 0, max: 9999})
     })
 })
 
@@ -21,7 +21,7 @@ chance.mixin({
 
 async function seed() {
     Array.prototype.random = function () {
-        return this[Math.floor(Math.random() * this.length)]
+        return this[Math.random() * this.length | 0]
     }
 
     function generator(model, amt) {

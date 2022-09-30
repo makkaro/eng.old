@@ -43,5 +43,5 @@ module.exports.update = async (req, res) => {
             : req.session.templates.unshift({id, amount: diff})
     }
 
-    res.redirect(`${id}`)
+    res.redirect('/store/cart')
 }

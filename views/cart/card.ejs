@@ -1,0 +1,25 @@
+<div class='flex py-6'>
+    <div class='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border
+                border-gray-200'>
+        <img class='h-full w-full object-cover object-center'
+             src='<%= $.img %>'>
+    </div>
+
+    <div class='ml-4 flex flex-1 flex-col'>
+        <div>
+            <div class='flex justify-between font-medium'>
+                <a href='#'><%= $.name %></a>
+                <p class='ml-4'><%= parsePLN($.subtotal) %></p>
+            </div>
+            <p class='mt-1 text-sm text-gray-500'><%= parsePLN($.cost) %></p>
+        </div>
+
+        <div class='flex flex-1 items-end justify-between text-sm'>
+            <p class='text-gray-500'> Ilość: <%= $.amount %> </p>
+
+            <div class='flex'>
+                <a href='#' class='font-medium text-emerald-600'>Usuń</a>
+            </div>
+        </div>
+    </div>
+</div>

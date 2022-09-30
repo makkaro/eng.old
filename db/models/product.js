@@ -5,7 +5,7 @@ module.exports = function (sqlz, DataTypes) {
             allowNull: false,
         },
         cost: {
-            type: DataTypes.DECIMAL(10, 2),
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         img : {

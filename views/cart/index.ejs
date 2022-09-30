@@ -1,17 +1,21 @@
-<!doctype html>
-<html lang='pl'>
-<head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+<%- include('../doc-start') %>
 
-    <link rel='stylesheet' href='/main.css'>
-
-    <title>TODO</title>
-</head>
-
-<body>
+<body class='text-gray-900'>
     <%- include('../header') %>
 
-    <%- include('content') %>
+    <div class='max-w-7xl mx-auto p-4'>
+        <% if (items) { %>
+            <%- include('content') %>
+        <% } else { %>
+            <center class='mt-6'>
+                <p class='text-xl text-gray-500'>Koszyk jest pusty...</p>
+
+                <a class='inline-block mt-6 font-medium text-sm text-emerald-600
+                          hover:text-emerald-500'
+                   href='/store'>Kontynuuj zakupy -></a>
+            </center>
+        <% } %>
+    </div>
 </body>
-</html>
+
+<%- include('../doc-end')%>

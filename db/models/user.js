@@ -45,7 +45,9 @@ module.exports = function (sqlz, DataTypes) {
                     return this.products.map($ => {
                         var {id, name, cost, img, item: {amount}} = $
 
-                        return {id, name, cost, img, amount}
+                        var subtotal = cost * amount
+
+                        return {id, name, cost, img, amount, subtotal}
                     })
                 }
 
