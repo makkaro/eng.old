@@ -17,6 +17,7 @@ router.patch('/store/product', ctl.product.update)
 
 router.get('/store/cart', ctl.cart.view)
 router.patch('/store/cart', ctl.cart.update)
+router.delete('/store/cart', ctl.cart.destroy)
 
 
 /* -------------------------------------------------------------------------- */

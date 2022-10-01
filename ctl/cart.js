@@ -1,3 +1,5 @@
+var {Op} = require('sequelize')
+
 var db = require('../db')
 
 
@@ -44,5 +46,21 @@ module.exports.update = async (req, res) => {
 
 /* -------------------------------------------------------------------------- */
 module.exports.destroy = async (req, res) => {
+    if (req.session.authenticated) {
+        var {query: {id: productId}, session: {user: {id: userId}}} = req
 
+        await db.item.destroy({
+            where: {
+                [Op.and]: [{productId}, {userId}]
+            }
+        })
+    } else {
+        var {query: {id}, session: {templates}} = req
+
+        if (templates && templates.length) {
+            req.session.templates = templates.filter($ => $.id != id)
+        }
+    }
+
+    res.redirect('/store/cart')
 }

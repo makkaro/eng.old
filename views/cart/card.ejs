@@ -17,9 +17,11 @@
         <div class='flex flex-1 items-end justify-between text-sm'>
             <p class='text-gray-500'> Ilość: <%= $.amount %> </p>
 
-            <div class='flex'>
-                <a href='#' class='font-medium text-emerald-600'>Usuń</a>
-            </div>
+            <form method='POST' action='?id=<%= $.id %>&_method=DELETE'>
+                <input class='font-medium text-emerald-600
+                              hover:text-emerald-600 hover:cursor-pointer'
+                       type='submit' value='Usuń'>
+            </form>
         </div>
     </div>
 </div>
