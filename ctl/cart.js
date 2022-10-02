@@ -41,7 +41,9 @@ module.exports.view = async (req, res) => {
 
 /* -------------------------------------------------------------------------- */
 module.exports.update = async (req, res) => {
+    var {id, amount} = req.body
 
+    res.json({id, amount})
 }
 
 /* -------------------------------------------------------------------------- */
