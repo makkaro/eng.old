@@ -42,13 +42,15 @@ module.exports = function (sqlz, DataTypes) {
             type: DataTypes.VIRTUAL,
             get: function () {
                 if (this.products && this.products.length) {
-                    return this.products.map($ => {
+                    var items = this.products.map($ => {
                         var {id, name, cost, img, item: {amount}} = $
 
                         var subtotal = cost * amount
 
                         return {id, name, cost, img, amount, subtotal}
                     })
+
+                    return items.sort(($, _) => ($.name > _.name) ? 1 : -1)
                 }
 
                 return undefined

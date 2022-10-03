@@ -14,11 +14,14 @@ module.exports.view = async (req, res) => {
     } else {
         if (templates && templates.length) {
             var records = await db.product.findAll({
-                where: {id: templates.map($ => $.id)}
+                where: {
+                    id: templates.map($ => $.id)
+                },
+                order: [['name', 'ASC']]
             })
 
-            items = templates.map(({id, amount}) => {
-                var {name, cost, img} = records.find(_ => _.id == id)
+            items = records.map(({id, name, cost, img}) => {
+                var {amount} = templates.find(_ => _.id == id)
 
                 var subtotal = cost * amount
 
@@ -41,9 +44,25 @@ module.exports.view = async (req, res) => {
 
 /* -------------------------------------------------------------------------- */
 module.exports.update = async (req, res) => {
-    var {id, amount} = req.body
+    var {amount} = req.body
 
-    res.json({id, amount})
+    if (req.session.authenticated) {
+        var {body: {id: productId}, session: {user: {id: userId}}} = req
+
+        await db.item.update({amount}, {
+            where: {
+                [Op.and]: [{productId}, {userId}]
+            }
+        })
+    } else {
+        var {body: {id}, session: {templates}} = req
+
+        if (templates && templates.length) {
+            templates.find($ => $.id == id).amount = parseInt(amount)
+        }
+    }
+
+    res.redirect('')
 }
 
 /* -------------------------------------------------------------------------- */
