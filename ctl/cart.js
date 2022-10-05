@@ -34,7 +34,7 @@ module.exports.view = async (req, res) => {
         total = items.reduce((prev, $) => prev + $.subtotal, 0)
     }
 
-    var parsePLN = $ => $ / 100 + ' zł'
+    var parsePLN = val => val.toString().replace(/\d{2}$/, '.$& zł')
 
     res.locals = {authenticated, user, items, total, parsePLN, ...res.locals}
 
