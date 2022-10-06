@@ -1,0 +1,88 @@
+<form class=''>
+    <div class='px-4'>
+        <p class='font-medium text-lg'>Adres rozliczeniowy</p>
+
+        <p class='mt-0.5 text-sm text-gray-600'>
+            Nö nûf biňom-lî səadölo, ek löf mûtaragraň ofredon ömis.</p>
+    </div>
+
+    <div class='mt-5 px-4 py-5 bg-white grid grid-cols-1 gap-6'>
+        <div>
+            <p class='form-label'>Zamów jako</p>
+
+            <select class='form-input'>
+                <option selected>Firma</option>
+                <option>Os. prywatna</option>
+            </select>
+        </div>
+
+        <div data-conditional>
+            <p class='form-label'>Nazwa firmy</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div data-conditional>
+            <p class='form-label'>NIP</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div class='hidden' data-conditional>
+            <p class='form-label'>Imię</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div class='hidden' data-conditional>
+            <p class='form-label'>Nazwisko</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div>
+            <p class='form-label'>Adres e-mail</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div>
+            <p class='form-label'>Numer telefonu</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div>
+            <p class='form-label'>Adres</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div>
+            <p class='form-label'>Województwo</p>
+
+            <select class='form-input'>
+                <option disabled selected hidden></option>
+                <option>woj. lubuskie</option>
+                <option>woj. dolnośląskie</option>
+                <option>woj. wielkopolskie</option>
+            </select>
+        </div>
+
+        <div>
+            <p class='form-label'>Miejscowość</p>
+
+            <input class='form-input'>
+        </div>
+
+        <div>
+            <p class='form-label'>Kod pocztowy</p>
+
+            <input class='form-input'>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.querySelectorAll('div[data-conditional]').forEach(console.log)
+</script>
