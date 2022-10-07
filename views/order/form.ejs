@@ -1,16 +1,15 @@
-<form class=''>
+<form class='shadow-sm' method='POST' action='#'>
     <div class='px-4'>
-        <p class='font-medium text-lg'>Adres rozliczeniowy</p>
+        <p class='font-medium text-lg'>Adres</p>
 
         <p class='mt-0.5 text-sm text-gray-600'>
             Nö nûf biňom-lî səadölo, ek löf mûtaragraň ofredon ömis.</p>
     </div>
 
-    <div class='mt-5 px-4 py-5 bg-white grid grid-cols-1 gap-6'>
+    <div class='mt-5 px-4 py-5 bg-white grid grid-cols-1  gap-6'>
         <div>
             <p class='form-label'>Zamów jako</p>
-
-            <select class='form-input'>
+            <select class='form-input' id='order-form-entity' autocomplete='off'>
                 <option selected>Firma</option>
                 <option>Os. prywatna</option>
             </select>
@@ -18,50 +17,42 @@
 
         <div data-conditional>
             <p class='form-label'>Nazwa firmy</p>
-
-            <input class='form-input'>
+            <input class='form-input' autofocus required>
         </div>
 
         <div data-conditional>
             <p class='form-label'>NIP</p>
-
-            <input class='form-input'>
+            <input class='form-input' required>
         </div>
 
         <div class='hidden' data-conditional>
             <p class='form-label'>Imię</p>
-
             <input class='form-input'>
         </div>
 
         <div class='hidden' data-conditional>
             <p class='form-label'>Nazwisko</p>
-
             <input class='form-input'>
         </div>
 
         <div>
             <p class='form-label'>Adres e-mail</p>
-
-            <input class='form-input'>
+            <input class='form-input' required>
         </div>
 
         <div>
             <p class='form-label'>Numer telefonu</p>
-
-            <input class='form-input'>
+            <input class='form-input' required>
         </div>
 
         <div>
             <p class='form-label'>Adres</p>
-
-            <input class='form-input'>
+            <input class='form-input' required>
         </div>
 
         <div>
             <p class='form-label'>Województwo</p>
-
-            <select class='form-input'>
+            <select class='form-input' required>
                 <option disabled selected hidden></option>
                 <option>woj. lubuskie</option>
                 <option>woj. dolnośląskie</option>
@@ -71,18 +62,26 @@
 
         <div>
             <p class='form-label'>Miejscowość</p>
-
-            <input class='form-input'>
+            <input class='form-input' required>
         </div>
 
         <div>
             <p class='form-label'>Kod pocztowy</p>
-
-            <input class='form-input'>
+            <input class='form-input' required>
         </div>
+    </div>
+
+    <div class='px-4 py-3 bg-gray-50'>
+        <input class='btn block ml-auto text-base' type='submit' value='Zamów'>
     </div>
 </form>
 
 <script>
-    document.querySelectorAll('div[data-conditional]').forEach(console.log)
+    document.getElementById('order-form-entity').addEventListener('change', () => {
+        var controls = document.querySelectorAll('div[data-conditional]')
+        controls.forEach(ctl => {
+            ctl.querySelector('input').toggleAttribute('required')
+            ctl.classList.toggle('hidden')
+        })
+    })
 </script>
