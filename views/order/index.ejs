@@ -1,12 +1,38 @@
 <%- include('../doc-start') %>
 
-<body>
+<body class='lg:flex lg:flex-col lg:min-h-screen'>
     <%- include('../header') %>
 
-    <div class='max-w-7xl mx-auto py-6 bg-gray-100 text-gray-900'>
-        <%- include('form') %>
+    <div class='lg:flex-grow lg:grid lg:grid-cols-3 lg:gap-6 mx-auto py-6 max-w-7xl bg-gray-100 text-gray-900 sm:p-6
+                lg:divide-x'>
 
+        <div class='lg:col-span-2'>
+            <div class='lg:col-span-1 px-4 sm:px-0'>
+                <p class='font-medium text-lg'>Zamówienie</p>
+                <p class='mt-0.5 text-sm text-gray-600'>Nö nûf biňom-lî səadölo, ek löf mûtaragraň ofredon ömis.</p>
+            </div>
 
+            <%- include('form') %>
+        </div>
+
+        <div class='lg:col-span-1 mt-10 lg:mt-0 lg:pl-6'>
+            <div class='px-4 sm:px-0'>
+                <p class='font-medium text-lg'>Koszyk</p>
+                <p class='mt-0.5 text-sm text-gray-600'>Kapa olıfoň şûfälön şal bü, eklänedol şevöbs vol tö.</p>
+            </div>
+
+            <div class='mt-5 bg-white sm:rounded-md shadow overflow-hidden'>
+                <div class='px-4 py-3 sm:px-6 divide-y'>
+                    <% items.forEach($ => { %>
+                        <%- include('card', {$}) %>
+                    <% }) %>
+                </div>
+
+                <div class='px-4 py-3 sm:px-6 bg-gray-50 text-right'>
+                    <a class='btn inline-block text-base' href='/store/cart'>Edytuj</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

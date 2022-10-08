@@ -10,7 +10,7 @@ module.exports.view = async (req, res) => {
     if (authenticated) {
         records = (await db.user.scope('withItems').findByPk(user.id)).items
 
-        items = records.map(({name, img, subtotal}) => ({name, img, subtotal}))
+        items = records.map(({name, img, amount, subtotal}) => ({name, img, amount, subtotal}))
     } else {
         if (templates && templates.length) {
             records = await db.product.findAll({
@@ -31,7 +31,7 @@ module.exports.view = async (req, res) => {
     }
 
     if (!items) {
-        res.redirect('/store/cart')
+        return res.redirect('/store/cart')
     }
 
     var total = items.reduce((prev, $) => prev + $.subtotal, 0)

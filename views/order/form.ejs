@@ -1,56 +1,48 @@
-<form class='shadow-sm' method='POST' action='#'>
-    <div class='px-4'>
-        <p class='font-medium text-lg'>Adres</p>
+<form class='mt-5 bg-white sm:rounded-md shadow overflow-hidden'
+      method='POST' action='#'>
 
-        <p class='mt-0.5 text-sm text-gray-600'>
-            Nö nûf biňom-lî səadölo, ek löf mûtaragraň ofredon ömis.</p>
-    </div>
-
-    <div class='mt-5 px-4 py-5 bg-white grid grid-cols-1  gap-6'>
-        <div>
+    <div class='grid grid-cols-1 sm:grid-cols-6 gap-6 px-4 py-5 sm:p-6'>
+        <div class='sm:col-span-6'>
             <p class='form-label'>Zamów jako</p>
-            <select class='form-input' id='order-form-entity' autocomplete='off'>
+            <select class='form-input sm:w-1/3' id='order-form-entity' autocomplete='off'>
                 <option selected>Firma</option>
                 <option>Os. prywatna</option>
             </select>
         </div>
 
-        <div data-conditional>
+        <div class='sm:col-span-3' data-conditional>
             <p class='form-label'>Nazwa firmy</p>
             <input class='form-input' autofocus required>
         </div>
 
-        <div data-conditional>
+        <div class='sm:col-span-2' data-conditional>
             <p class='form-label'>NIP</p>
             <input class='form-input' required>
         </div>
 
-        <div class='hidden' data-conditional>
-            <p class='form-label'>Imię</p>
-            <input class='form-input'>
-        </div>
+        <% ['Imię', 'Nazwisko'].forEach($ => { %>
+            <div class='sm:col-span-3 hidden' data-conditional>
+                <p class='form-label'><%= $ %></p>
+                <input class='form-input'>
+            </div>
+        <% }) %>
 
-        <div class='hidden' data-conditional>
-            <p class='form-label'>Nazwisko</p>
-            <input class='form-input'>
-        </div>
-
-        <div>
+        <div class='sm:col-span-4'>
             <p class='form-label'>Adres e-mail</p>
-            <input class='form-input' required>
+            <input class='form-input' type='email' required>
         </div>
 
-        <div>
+        <div class='sm:col-span-4 sm:w-1/2'>
             <p class='form-label'>Numer telefonu</p>
-            <input class='form-input' required>
+            <input class='form-input' type='tel' required>
         </div>
 
-        <div>
+        <div class='sm:col-span-6'>
             <p class='form-label'>Adres</p>
             <input class='form-input' required>
         </div>
 
-        <div>
+        <div class='sm:col-span-2'>
             <p class='form-label'>Województwo</p>
             <select class='form-input' required>
                 <option disabled selected hidden></option>
@@ -60,28 +52,18 @@
             </select>
         </div>
 
-        <div>
+        <div class='sm:col-span-2'>
             <p class='form-label'>Miejscowość</p>
             <input class='form-input' required>
         </div>
 
-        <div>
+        <div class='sm:col-span-2'>
             <p class='form-label'>Kod pocztowy</p>
             <input class='form-input' required>
         </div>
     </div>
 
-    <div class='px-4 py-3 bg-gray-50'>
+    <div class='px-4 py-3 sm:px-6 bg-gray-50'>
         <input class='btn block ml-auto text-base' type='submit' value='Zamów'>
     </div>
 </form>
-
-<script>
-    document.getElementById('order-form-entity').addEventListener('change', () => {
-        var controls = document.querySelectorAll('div[data-conditional]')
-        controls.forEach(ctl => {
-            ctl.querySelector('input').toggleAttribute('required')
-            ctl.classList.toggle('hidden')
-        })
-    })
-</script>

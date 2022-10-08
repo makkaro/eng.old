@@ -1,6 +1,13 @@
-<div class='py-6'>
-    <p><%= $.name %></p>
-    <p><%= $.img %></p>
-    <p><%= parsePLN($.subtotal) %></p>
-    <p><%= parsePLN(total) %></p>
+<div class='flex justify-between py-3'>
+    <div class='h-16 w-16 overflow-hidden border border-gray-200 rounded-md'>
+        <img class='w-full h-full object-cover object-center' src='<%= $.img %>'>
+    </div>
+
+    <div class='flex flex-col justify-between items-end ml-4 pt-0.5 pb-1 text-sm'>
+        <p class='font-medium'>
+            <%= $.name %> <span class='font-normal text-xs text-gray-500'>(<%= $.amount %>)</span>
+        </p>
+
+        <p class='text-gray-800'><%= parsePLN($.subtotal) %></p>
+    </div>
 </div>
