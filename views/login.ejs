@@ -2,26 +2,25 @@
 <%- include('header') %>
 
 <center style='margin-top: 200px'>
-    <h2>logowanie</h2>
+    <h2 class='text-lg font-medium'>logowanie</h2>
 
     <% if (user) { %>
-        <h3>zalogowano: <%= user.username %></h3>
+        <h3 class='mt-3'>zalogowano: <%= user.username %></h3>
     <% } %>
 
     <form method='POST' action='/login'>
-        <div>
-            <label for='username'>login</label>
-            <input id='username' name='username' required autofocus>
+        <div class='mt-10 w-1/4'>
+            <p class='form-label'>login</p>
+            <input class='form-input' name='username' required autofocus>
         </div>
-        <div>
-            <label for='password'>hasło</label>
-            <input id='password' name='password' type='password' required>
+        <div class='mt-3 w-1/4'>
+            <p class='form-label'>hasło</p>
+            <input class='form-input' name='password' type='password' required>
         </div>
-        <input type='submit' value='zaloguj'>
+        <input class='mt-10 btn' type='submit' value='zaloguj'>
     </form>
 
-    <form method='POST' action='/login/?_method=DELETE'
-          style='margin-top: 100px'>
-        <input type='submit' value='wyloguj'>
+    <form class='mt-20' method='POST' action='/login/?_method=DELETE'>
+        <input class='btn bg-gray-600 hover:bg-gray-700 focus:ring-gray-500' type='submit' value='wyloguj'>
     </form>
 </center>

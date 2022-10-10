@@ -1,7 +1,7 @@
 var db = require('../db')
 
 
-/* -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------ */
 module.exports.view = async (req, res) => {
     var {authenticated, user, templates} = req.session
 
@@ -41,4 +41,10 @@ module.exports.view = async (req, res) => {
     res.locals = {items, total, parsePLN, ...res.locals}
 
     res.render('order')
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+module.exports.create = async (req, res) => {
+
 }

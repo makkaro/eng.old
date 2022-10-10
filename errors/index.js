@@ -13,9 +13,9 @@ var valid = file => {
 }
 
 var associate = file => {
-    var constructor = file.substr(0, file.length - 3).replaceAll('-', '')
+    var constructor = require(path.join(__dirname, file))
 
-    errors[constructor] = require(path.join(__dirname, file))
+    errors[constructor.name] = constructor
 }
 
 fs.readdirSync(__dirname).filter(valid).forEach(associate)

@@ -6,6 +6,8 @@ var db = require('../db'),
 
 /* -------------------------------------------------------------------------- */
 module.exports.view = async (req, res) => {
+    console.log(errors)
+
     res.locals.user = undefined
 
     if (req.session.authenticated) {

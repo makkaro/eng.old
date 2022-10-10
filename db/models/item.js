@@ -14,7 +14,7 @@ module.exports = function (sqlz, DataTypes) {
         }
     })
 
-    item.addScope('full', {})
+    item.addScope('full', Object.create(null))
 
     return item
 }

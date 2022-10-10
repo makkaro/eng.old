@@ -19,6 +19,7 @@ module.exports = function (sqlz, DataTypes) {
         this.belongsTo(db.category)
         this.belongsTo(db.manufacturer)
         this.belongsToMany(db.user, {through: db.item})
+        this.belongsToMany(db.variant, {through: db.element})
     }
 
     product.addScope('defaultScope', {
