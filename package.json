@@ -1,9 +1,9 @@
 {
     "scripts": {
         "start"    : "concurrently \"nodemon index\" \"npm run tailwind\"",
-        "seed"     : "node auxp/seed",
         "admin"    : "nodemon auxp/admin",
-        "tailwind" : "npx tailwindcss -c ./.tailwindrc -i ./.rc.css -o ./public/main.css --watch"
+        "tailwind" : "npx tailwindcss -c ./.tailwindrc -i ./.rc.css -o ./public/main.css --watch",
+        "seed"     : "node auxp/seed"
     },
     "dependencies": {
         "connect-session-sequelize" : "^7.1.5",

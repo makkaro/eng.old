@@ -1,7 +1,22 @@
 <%- include('../doc-start') %>
 
 <body>
-    <h2>OK!</h2>
+    <%- include('../header') %>
+
+    <div style='margin: auto; max-width: 1080px'>
+        <h2>Panel administracyjny</h2>
+        <h3>Wybierz zasoby do edycji:</h3>
+        <br>
+        <big>
+            <p><a href='/featured'>Wyróżnione elementy</a></p>
+            <p><a href='/inv'>Inwestycje</a></p>
+            <p><a href='/products'>Produkty</a></p>
+            <p><a href='/categories'>Kategorie</a></p>
+            <p><a href='/manufactures'>Producenci</a></p>
+        </big>
+    </div>
+
+
 </body>
 
 <%- include('../doc-end') %>
