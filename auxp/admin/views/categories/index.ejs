@@ -1,0 +1,15 @@
+<%- include('../doc-start') %>
+
+<body>
+    <%- include('../header') %>
+
+    <div style='margin: auto; max-width: 1080px'>
+        <h2>Kategorie</h2>
+
+        <% records.forEach($ => { %>
+            <h3><%= $.name %></h3>
+        <% }) %>
+    </div>
+</body>
+
+<%- include('../doc-end') %>
