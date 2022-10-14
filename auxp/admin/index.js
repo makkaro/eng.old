@@ -16,7 +16,6 @@ server.set('views', './auxp/admin/views')
 server.set('view engine', 'ejs')
 
 server.use(methodOverride('_method'))
-server.use(express.static(path.join(__dirname, 'public')))
 server.use(express.urlencoded({extended: true}))
 server.use(express.json())
 server.use('/', routes)

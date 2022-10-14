@@ -1,0 +1,35 @@
+<%- include('../doc-start') %>
+
+<body>
+    <%- include('../header') %>
+
+    <center>
+        <form method='POST' action='/categories'>
+            <fieldset style='margin-top: 3rem; width: 500px'>
+                <% if (record) { %>
+                    <legend>Edycja kategorii</legend>
+                <% } else { %>
+                    <legend>Dodawanie kategorii</legend>
+                <% } %>
+
+                <input type='hidden' name='id' value='<%= record?.id %>'>
+
+                <table style='table-layout: fixed; width: 80%'>
+                    <colgroup>
+                        <col style='width: auto'>
+                        <col style='width: 70%'>
+                    </colgroup>
+
+                    <tr>
+                        <td>Nazwa</td>
+                        <td><input style='width: 100%' name='name' value='<%= record?.name %>' autofocus></td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <input style='margin-top: 1rem' type='submit' value='Zapisz'>
+        </form>
+    </center>
+</body>
+
+<%- include('../doc-end') %>

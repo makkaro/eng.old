@@ -4,6 +4,9 @@ var ctl = require('./ctl'),
 
 router.get('/', ctl.home.view)
 router.get('/categories', ctl.categories.view)
+router.get('/category/:id', ctl.categories.edit_view)
+router.post('/categories', ctl.categories.edit)
+router.get('/category/del/:id', ctl.categories.destroy)
 router.get('/featured', ctl.featured.view)
 router.get('/inv', ctl.inv.view)
 router.get('/manufacturers', ctl.manufacturers.view)
