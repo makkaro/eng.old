@@ -1,0 +1,29 @@
+<% if (added) { %>
+    <center class='mb-1 color-green'>Sukces: dodano zasób.</center>
+<% } %>
+
+<% if (updated) { %>
+    <center class='mb-1 color-green'>Sukces: zaktualizowano zasób.</center>
+<% } %>
+
+<% if (del) { %>
+    <center class='mb-1 color-green'>Sukces: usunięto zasób.</center>
+<% } %>
+
+<% if (del_forbidden) { %>
+    <center class='mb-1 color-red'>Błąd: istnieją zasoby zależne.</center>
+<% } %>
+
+<style>
+    .mb-1 {
+        margin-bottom: 1rem;
+    }
+
+    .color-green {
+        color: green;
+    }
+
+    .color-red {
+        color: red;
+    }
+</style>

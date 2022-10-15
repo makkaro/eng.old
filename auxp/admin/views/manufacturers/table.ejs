@@ -1,0 +1,59 @@
+<table class='table-fixed mx-auto p-half w-500 border-ts-lightgray'>
+    <colgroup>
+        <col class='w-auto'>
+        <col class='w-10'>
+        <col class='w-10'>
+    </colgroup>
+
+    <tr>
+        <th><h3>Producenci</h3></th>
+        <th colspan='2'><a href='/manufacturer/-1'>Dodaj</a></th>
+    </tr>
+
+    <% records.forEach(($, i) => { %>
+        <% if (i % 2) { %>
+            <tr class='bg-gray-50'><%- include('row', {$}) %></tr>
+        <% } else { %>
+            <tr class='bg-gray-100'><%- include('row', {$}) %></tr>
+        <% } %>
+    <% }) %>
+</table>
+
+<style>
+    .table-fixed {
+        table-layout: fixed;
+    }
+
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .p-half {
+        padding: .5rem;
+    }
+
+    .w-500 {
+        width: 500px;
+    }
+
+    .border-ts-lightgray {
+        border: thin solid lightgray;
+    }
+
+    .w-auto {
+        width: auto;
+    }
+
+    .w-10 {
+        width: 10%;
+    }
+
+    .bg-gray-50 {
+        background-color: hsl(210, 20%, 98%);
+    }
+
+    .bg-gray-100 {
+        background-color: hsl(220, 14%, 96%)
+    }
+</style>
