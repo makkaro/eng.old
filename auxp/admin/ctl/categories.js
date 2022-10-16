@@ -2,9 +2,7 @@ var {Op} = require('sequelize'), db = require('../../../db')
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 module.exports.view = async (req, res) => {
-    var {added, updated, del, del_forbidden, search} = req.query, records = undefined
-
-    console.log(req.url)
+    var {added, updated, del, del_forbidden, search} = req.query, {url} = req, records = undefined
 
     if (search) {
         records = await db.category.scope('full').findAll({
@@ -19,7 +17,7 @@ module.exports.view = async (req, res) => {
         records = await db.category.scope('full').findAll({order: [['name', 'ASC']]})
     }
 
-    res.locals = {added, updated, del, del_forbidden, search, records, ...res.locals}
+    res.locals = {added, updated, del, del_forbidden, search, url, records, ...res.locals}
 
     res.render('categories')
 }

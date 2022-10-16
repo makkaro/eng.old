@@ -1,0 +1,77 @@
+.table-fixed {
+    table-layout: fixed;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-3 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.mt-3 {
+    margin-top: 3rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.border-ts-lightgray {
+    border: thin solid lightgray;
+}
+
+.p-1 {
+    padding: 1rem;
+}
+
+.p-half {
+    padding: .5rem
+}
+
+.w-auto {
+    width: auto;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-500 {
+    width: 500px;
+}
+
+.color-green {
+    color: green;
+}
+
+.color-red {
+    color: red;
+}
+
+.bg-gray-50 {
+    background: hsl(210, 20%, 98%);
+}
+
+.bg-gray-100 {
+    background: hsl(220, 14%, 96%);
+}

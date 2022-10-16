@@ -3,55 +3,11 @@
 <body>
     <%- include('../header') %>
 
-    <center style='margin: 3rem'>
-        <form action='/categories'>
-            <input name='search' value='<%= search %>'>
-            <input type='submit' value='Wyszukaj'>
-        </form>
-    </center>
+    <%- include('../search', {url, search}) %>
 
-    <% if (added) { %>
-        <center style='margin-bottom: 1rem; color: green'>
-            Sukces: dodano zasób.
-        </center>
-    <% } %>
+    <%- include('../validation', {added, updated, del, del_forbidden}) %>
 
-    <% if (updated) { %>
-        <center style='margin-bottom: 1rem; color: green'>
-            Sukces: zaktualizowano zasób.
-        </center>
-    <% } %>
-
-    <% if (del) { %>
-        <center style='margin-bottom: 1rem; color: green'>
-            Sukces: usunięto zasób.
-        </center>
-    <% } %>
-
-    <% if (del_forbidden) { %>
-        <center style='margin-bottom: 1rem; color: red'>
-            Błąd: usuń produkty należące do kategorii i spróbuj ponownie.
-        </center>
-    <% } %>
-
-    <table style='margin: auto; padding: .5rem; width: 500px; border: thin solid hsl(215, 20%, 65%)'>
-        <tr>
-            <th width='100%'><h3>Kategorie</h3></th>
-            <th colspan='2'><a href='/category/-1'>Dodaj</a></th>
-        </tr>
-
-        <% records.forEach(($, i) => { %>
-            <% if (!(i % 2)) { %>
-                <tr style='background: hsl(220, 14%, 96%)'>
-                    <%- include('card', {$}) %>
-                </tr>
-            <% } else { %>
-                <tr style='background: hsl(210, 20%, 98%)'>
-                    <%- include('card', {$}) %>
-                </tr>
-            <% } %>
-        <% }) %>
-    </table>
+    <%- include('table', {records}) %>
 </body>
 
 <%- include('../doc-end') %>
