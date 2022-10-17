@@ -1,0 +1,38 @@
+<%
+    var resource_name = undefined, edit_url = undefined
+
+    if (url.includes('categories')) {
+        console.log('OK!')
+        resource_name = 'Kategorie'
+        edit_url = '/category'
+    } else if (url.includes('manufacturers')) {
+        resource_name = 'Producenci'
+        edit_url = '/manufacturer'
+    } else if (url.includes('products')) {
+        resource_name = 'Produkty'
+        edit_url = '/product'
+    }
+%>
+
+
+
+<table class='table-fixed mx-auto border-ts-lightgray p-half w-500'>
+    <colgroup>
+        <col class='w-auto'>
+        <col class='w-10'>
+        <col class='w-10'>
+    </colgroup>
+
+    <tr>
+        <th><h3><%= resource_name %></h3></th>
+        <th colspan='2'><a href='<%= edit_url + "/" + -1 %>'>Dodaj</a></th>
+    </tr>
+
+    <% records.forEach(($, i) => { %>
+        <% if (i % 2) { %>
+            <tr class='bg-gray-50'><%- include('row', {$, edit_url}) %></tr>
+        <% } else { %>
+            <tr class='bg-gray-100'><%- include('row', {$, edit_url}) %></tr>
+        <% } %>
+    <% }) %>
+</table>

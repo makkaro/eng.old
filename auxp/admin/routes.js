@@ -15,5 +15,8 @@ router.post('/manufacturers', ctl.manufacturers.edit)
 router.get('/manufacturer/del/:id', ctl.manufacturers.destroy)
 router.get('/orders', ctl.orders.view)
 router.get('/products', ctl.products.view)
+router.get('/product/:id', ctl.products.edit_view)
+router.post('/products', ctl.products.edit)
+router.get('/product/del/:id', ctl.products.destroy)
 
 module.exports = router

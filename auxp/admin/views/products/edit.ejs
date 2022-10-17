@@ -1,0 +1,49 @@
+<%- include('../doc-start') %>
+
+<body>
+    <%- include('../header') %>
+
+    <center>
+        <form method='POST' action='/products'>
+            <fieldset class='mt-3 w-500'>
+                <% if (record) { %>
+                    <legend>Edytuj produkt</legend>
+                <% } else { %>
+                    <legend>Dodaj produkt</legend>
+                <% } %>
+
+                <input type='hidden' name='id' value='<%= record?.id %>'>
+
+                <table class='table-fixed w-80'>
+                    <colgroup>
+                        <col class='w-auto'>
+                        <col class='w-70'>
+                    </colgroup>
+
+                    <tr>
+                        <td>Nazwa</td>
+                        <td><input class='w-full' name='name' value='<%= record?.name %>' autofocus></td>
+                    </tr>
+
+                    <tr>
+                        <td>Cena</td>
+                        <td>
+                            <input class='w-full' type='number' step='0.01' name='cost' value='<%= record?.cost %>'>
+                        </td>
+                    </tr>
+
+                    <% if (!record) { %>
+                        <tr>
+                            <td>Zdjęcie</td>
+                            <td><input type='file' name='img' accept='image/png, image/jpeg' required></td>
+                        </tr>
+                    <% } %>
+                </table>
+            </fieldset>
+
+            <input class='mt-1' type='submit' value='Zapisz'>
+        </form>
+    </center>
+</body>
+
+<%- include('../doc-end') %>
