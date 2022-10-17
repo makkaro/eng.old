@@ -1,6 +1,7 @@
 var ctl = require('./ctl'),
     express = require('express'),
-    router = express.Router()
+    router = express.Router(),
+    upload = require('./middleware/upload')
 
 router.get('/', ctl.home.view)
 router.get('/categories', ctl.categories.view)
@@ -16,7 +17,9 @@ router.get('/manufacturer/del/:id', ctl.manufacturers.destroy)
 router.get('/orders', ctl.orders.view)
 router.get('/products', ctl.products.view)
 router.get('/product/:id', ctl.products.edit_view)
-router.post('/products', ctl.products.edit)
+router.post('/products', upload.single('img'), ctl.products.edit)
 router.get('/product/del/:id', ctl.products.destroy)
+router.get('/product/upload/:id', ctl.products.img_upload_view)
+router.post('/product/upload', upload.single('img'), ctl.products.img_upload)
 
 module.exports = router

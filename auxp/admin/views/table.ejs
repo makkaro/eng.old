@@ -2,15 +2,11 @@
     var resource_name = undefined, edit_url = undefined
 
     if (url.includes('categories')) {
-        console.log('OK!')
         resource_name = 'Kategorie'
         edit_url = '/category'
     } else if (url.includes('manufacturers')) {
         resource_name = 'Producenci'
         edit_url = '/manufacturer'
-    } else if (url.includes('products')) {
-        resource_name = 'Produkty'
-        edit_url = '/product'
     }
 %>
 
