@@ -10,6 +10,9 @@ var router = express.Router()
 
 /* -------------------------------------------------------------------------- */
 
+router.get('/', ctl.home.view)
+
+
 router.get('/store', ctl.store.view)
 
 router.get('/store/product/:id', ctl.product.view)

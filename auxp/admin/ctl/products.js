@@ -81,6 +81,10 @@ module.exports.img_upload = async (req, res) => {
 
     await util.promisify(fs.rename)(tempdir, destdir)
 
+    var record = await db.product.findByPk(id)
+
+    await record.update({img: '/products/' + id + '.jpg'})
+
     res.redirect('/products?img_updated=true')
 }
 

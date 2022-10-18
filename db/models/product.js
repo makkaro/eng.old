@@ -11,7 +11,7 @@ module.exports = function (sqlz, DataTypes) {
         img : {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 'https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg' // TODO
+            defaultValue: '/products/default.jpg'
         }
     })
 
