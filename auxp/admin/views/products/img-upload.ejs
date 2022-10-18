@@ -1,1 +1,31 @@
-<h2>lsakfjd</h2>
+<%- include('../doc-start') %>
+
+<body>
+    <%- include('../header') %>
+
+    <center>
+        <form method='POST' enctype='multipart/form-data' action='/product/upload'>
+            <input type='hidden' name='id' value='<%= id %>'>
+
+            <fieldset class='mt-3 w-500'>
+                <legend>Dodaj nowe zdjęcie</legend>
+
+                <table class='table-fixed w-80'>
+                    <colgroup>
+                        <col class='w-auto'>
+                        <col class='w-70'>
+                    </colgroup>
+
+                    <tr>
+                        <td>Zdjęcie</td>
+                        <td><input type='file' name='img' accept='image/jpeg' required></td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <input class='mt-1' type='submit' value='Zapisz'>
+        </form>
+    </center>
+</body>
+
+<%- include('../doc-end') %>

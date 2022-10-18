@@ -23,7 +23,7 @@ server.use('/', routes)
 
 
 /* ------------------------------------------------------------------------------------------------------------------ */
-var port = process.env.PORT || 3000
+var port = process.env.ADMIN_PORT || 4000
 
 void async function () {
     try {

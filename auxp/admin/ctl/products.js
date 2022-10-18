@@ -39,6 +39,10 @@ module.exports.edit_view = async (req, res) => {
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 module.exports.img_upload_view = async (req, res) => {
+    var {id} = req.params
+
+    res.locals = {id, ...res.locals}
+
     res.render('products/img-upload')
 }
 
@@ -69,7 +73,15 @@ module.exports.edit = async (req, res) => {
 
 /* ------------------------------------------------------------------------------------------------------------------ */
 module.exports.img_upload = async (req, res) => {
-    res.redirect('/products')
+    var {id} = req.body
+
+    var basedir = __dirname.split(path.sep).slice(0, -3).join(path.sep),
+        tempdir = req.file.path,
+        destdir = path.join(basedir, 'public', 'img', 'products', id + '.jpg')
+
+    await util.promisify(fs.rename)(tempdir, destdir)
+
+    res.redirect('/products?img_updated=true')
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
