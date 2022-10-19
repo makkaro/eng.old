@@ -1,5 +1,10 @@
 module.exports = function (sqlz, DataTypes) {
-    var subunit = sqlz.define('subunit', {})
+    var subunit = sqlz.define('subunit', {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    })
 
     subunit.associate = function (db) {
         this.belongsTo(db.unit)

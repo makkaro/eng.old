@@ -1,12 +1,25 @@
 <%
+    if (url.includes('?')) {
+        url = url.split('?')[0]
+    }
+
     var resource_name = undefined, edit_url = undefined
 
-    if (url.includes('categories')) {
+    if (/categories$/.test(url)) {
         resource_name = 'Kategorie'
         edit_url = '/category'
-    } else if (url.includes('manufacturers')) {
+    } else if (/manufacturers$/.test(url)) {
         resource_name = 'Producenci'
         edit_url = '/manufacturer'
+    } else if (/inv$/.test(url)) {
+        resource_name = 'Inwestycje'
+        edit_url = '/inv'
+    } else if (/inv\/-?\d+$/.test(url)) {
+        resource_name = 'Budynki'
+        edit_url = url + '/unit'
+    } else if (/unit\/-?\d+$/.test(url)) {
+        resource_name = 'Pomieszczenia'
+        edit_url = url + '/subunit'
     }
 %>
 

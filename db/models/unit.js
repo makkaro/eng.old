@@ -1,9 +1,14 @@
 module.exports = function (sqlz, DataTypes) {
     var unit = sqlz.define('unit', {
-        img: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false
         }
+
+        // img: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false
+        // }
     })
 
     unit.associate = function (db) {

@@ -1,5 +1,10 @@
 module.exports = function (sqlz, DataTypes) {
-    var element = sqlz.define('element', {})
+    var element = sqlz.define('element', {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
+    })
 
     element.addScope('defaultScope', {
         attributes: {

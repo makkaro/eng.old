@@ -3,9 +3,9 @@
 <body>
     <%- include('../header') %>
 
-    <div style='margin: auto; max-width: 1080px'>
-        <h2>Inwestycje</h2>
-    </div>
+    <%- include('../search', {url, search}) %>
+
+    <%- include('../table', {records}) %>
 </body>
 
 <%- include('../doc-end') %>

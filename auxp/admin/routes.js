@@ -21,5 +21,12 @@ router.post('/products', upload.single('img'), ctl.products.edit)
 router.get('/product/del/:id', ctl.products.destroy)
 router.get('/product/upload/:id', ctl.products.img_upload_view)
 router.post('/product/upload', upload.single('img'), ctl.products.img_upload)
+router.get('/inv', ctl.inv.view)
+router.get('/inv/:id', ctl.inv.edit_view)
+router.post('/inv', ctl.inv.edit)
+router.get('/inv/:invId/unit/:id', ctl.inv.edit_unit_view)
+router.post('/units', ctl.inv.edit_unit)
+router.get('/inv/:invId/unit/:unitId/subunit/:id', ctl.inv.edit_subunit_view)
+router.post('/subunits', ctl.inv.edit_subunit)
 
 module.exports = router

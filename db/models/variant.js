@@ -1,10 +1,10 @@
 module.exports = function (sqlz, DataTypes) {
     var variant = sqlz.define('variant', {
-        featured: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: true
-        },
+        // featured: {
+        //     type: DataTypes.BOOLEAN,
+        //     allowNull: false,
+        //     defaultValue: true
+        // },
         img: {
             type: DataTypes.STRING,
             allowNull: false
