@@ -1,0 +1,11 @@
+<%- include('../doc-start') %>
+<body>
+<%- include('../header') %>
+
+<div class='grid divide-y mx-auto mt-3 w-1/4 text-center'>
+    <% units?.forEach($ => { %>
+        <a class='block p-2' href='<%= '/unit/' + $.id %>'><%= $.name %></a>
+    <% }) %>
+</div>
+</body>
+<%- include('../doc-end') %>

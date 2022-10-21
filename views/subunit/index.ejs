@@ -1,0 +1,25 @@
+<%- include('../doc-start') %>
+<body>
+<%- include('../header') %>
+
+    <center class='text-lg mt-3'><%= subunit.name %></center>
+
+    <form class='text-center mt-6'>
+        <% subunit?.elements?.forEach(element => { %>
+            <select name='<%= element.id %>'>
+                <% element.products?.forEach(product => { %>
+                    <option value='<%= product.id %>'><%= product.name %></option>
+                <% }) %>
+            </select>
+        <% }) %>
+
+        <input class='btn' type='submit' value='Zobacz'>
+    </form>
+
+    <p><%= variant?.code %></p>
+
+    <% if (variant) { %>
+        <img class='w-100 h-100 mx-auto' src='<%= variant.img %>'>
+    <% } %>
+</body>
+<%- include('../doc-end') %>

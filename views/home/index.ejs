@@ -2,6 +2,10 @@
     <body>
         <%- include('../header') %>
 
-        <h2>ok!</h2>
+        <div class='grid divide-y mx-auto mt-3 w-1/4 text-center'>
+            <% inv?.forEach($ => { %>
+                <a class='block p-2' href='<%= '/inv/' + $.id %>'><%= $.name %></a>
+            <% }) %>
+        </div>
     </body>
 <%- include('../doc-end') %>

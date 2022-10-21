@@ -165,19 +165,22 @@ module.exports.edit_element = async (req, res) => {
 
         subunit = await db.subunit.findByPk(subunitId, {include: {model: db.element, include: db.product}})
 
-        var cartesian_product = (...x) => x.reduce((i, j) => i.flatMap(k => j.map(l => [k, l].flat())))
+        if (subunit.elements.length > 1) {
+            var cartesian_product = (...x) => x.reduce((i, j) => i.flatMap(k => j.map(l => [k, l].flat())))
 
-        var arrays = []
+            var arrays = []
 
-        subunit.elements.forEach(element => {
-            arrays.push(element.products.map(product => product.id))
-        })
+            subunit.elements.forEach(element => {
+                arrays.push(element.products.map(product => product.id))
+            })
 
-        var variants = cartesian_product(...arrays)
+            var variants = cartesian_product(...arrays)
 
-        for (var codeArr of variants) {
-            var code = codeArr.join('-')
-            await db.variant.create({code, subunitId})
+            for (var codeArr of variants) {
+                var code = codeArr.join('-')
+                await db.variant.create({code, subunitId})
+
+            }
         }
 
         return res.redirect('/inv/' + invId + '/unit/' + unitId + '/subunit/' + subunitId)

@@ -11,6 +11,9 @@ var router = express.Router()
 /* -------------------------------------------------------------------------- */
 
 router.get('/', ctl.home.view)
+router.get('/inv/:id', ctl.inv.view)
+router.get('/unit/:id', ctl.unit.view)
+router.get('/subunit/:id', ctl.subunit.view)
 
 
 router.get('/store', ctl.store.view)
