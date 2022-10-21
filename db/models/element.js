@@ -6,6 +6,11 @@ module.exports = function (sqlz, DataTypes) {
         }
     })
 
+    element.associate = function (db) {
+        this.belongsTo(db.subunit)
+        this.belongsToMany(db.product, {through: 'elementProducts'})
+    }
+
     element.addScope('defaultScope', {
         attributes: {
             exclude: ['createdAt', 'updatedAt']

@@ -17,9 +17,12 @@
     } else if (/inv\/-?\d+$/.test(url)) {
         resource_name = 'Budynki'
         edit_url = url + '/unit'
-    } else if (/unit\/-?\d+$/.test(url)) {
+    } else if (/\/unit\/-?\d+$/.test(url)) {
         resource_name = 'Pomieszczenia'
         edit_url = url + '/subunit'
+    } else if (/subunit\/-?\d+$/.test(url)) {
+        resource_name = 'Elementy'
+        edit_url = url + '/element'
     }
 %>
 
@@ -37,7 +40,7 @@
         <th colspan='2'><a href='<%= edit_url + "/" + -1 %>'>Dodaj</a></th>
     </tr>
 
-    <% records.forEach(($, i) => { %>
+    <% records?.forEach(($, i) => { %>
         <% if (i % 2) { %>
             <tr class='bg-gray-50'><%- include('row', {$, edit_url}) %></tr>
         <% } else { %>

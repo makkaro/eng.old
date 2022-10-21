@@ -28,5 +28,9 @@ router.get('/inv/:invId/unit/:id', ctl.inv.edit_unit_view)
 router.post('/units', ctl.inv.edit_unit)
 router.get('/inv/:invId/unit/:unitId/subunit/:id', ctl.inv.edit_subunit_view)
 router.post('/subunits', ctl.inv.edit_subunit)
+router.get('/inv/:invId/unit/:unitId/subunit/:subunitId/element/:id', ctl.inv.edit_element_view)
+router.post('/elements', ctl.inv.edit_element)
+router.get('/inv/:invId/unit/:unitId/subunit/:subunitId/variant/:id', ctl.inv.variant_img_upload_view)
+router.post('/variant/upload', upload.single('img'), ctl.inv.variant_img_upload)
 
 module.exports = router

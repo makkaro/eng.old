@@ -1,0 +1,53 @@
+<%- include('../doc-start') %>
+
+<body>
+<%- include('../header') %>
+
+    <center>
+        <form method='POST' action='/elements'>
+            <fieldset class='mt-3 w-500'>
+                <% if (record) { %>
+                    <legend>Edytuj element</legend>
+                <% } else { %>
+                    <legend>Dodaj nowy element</legend>
+                <% } %>
+
+                <input type='hidden' name='id' value='<%= record?.id %>'>
+                <input type='hidden' name='invId' value='<%= invId %>'>
+                <input type='hidden' name='unitId' value='<%= unitId %>'>
+                <input type='hidden' name='subunitId' value='<%= subunitId %>'>
+
+                <table class='table-fixed w-80'>
+                    <colgroup>
+                        <col class='w-auto'>
+                        <col class='w-70'>
+                    </colgroup>
+
+                    <tr>
+                        <td>Nazwa</td>
+                        <td><input class='w-full' name='name' value='<%= record?.name %>'></td>
+                    </tr>
+
+                    <tr>
+                        <td>Produkty</td>
+                        <td>
+                            <select class='w-full h-750' name='products' multiple>
+                                <% products?.forEach($ => { %>
+                                    <% if (selected.includes($.id)) { %>
+                                        <option selected value='<%= $.id %>'><%= $.name %></option>
+                                    <% } else { %>
+                                        <option value='<%= $.id %>'><%= $.name %></option>
+                                    <% } %>
+                                <% }) %>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <input class='mt-1' type='submit' value='Zapisz'>
+        </form>
+    </center>
+</body>
+
+<%- include('../doc-end') %>

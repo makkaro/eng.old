@@ -5,15 +5,19 @@ module.exports = function (sqlz, DataTypes) {
         //     allowNull: false,
         //     defaultValue: true
         // },
-        img: {
+        code: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+
+        img: {
+            type: DataTypes.STRING
         }
     })
 
     variant.associate = function (db) {
         this.belongsTo(db.subunit)
-        this.belongsToMany(db.product, {through: db.element})
+        this.belongsToMany(db.product, {through: 'variantProducts'})
     }
 
     variant.addScope('defaultScope', {
